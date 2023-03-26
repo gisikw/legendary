@@ -1,5 +1,5 @@
-import { HextLexer } from "./hextLexer";
-import { TokenType } from "./types";
+import { HextLexer } from "../hextLexer";
+import { TokenType } from "../types";
 
 test("tokenize sample inputs", () => {
 	expect(

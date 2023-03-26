@@ -19,6 +19,11 @@ export class HextSVGTranspiler {
 		return JSON.stringify(ast);
 
 		// Applying transformers
+		// - Extract metadata - in particular we need to know if we're dealing with flat-top or point-top hexes?
+		// - Turn path coordinates into hexes
+		// - Generate origins and vertices for all hexes
+		// - Turn all "renderables" into their own nodes (labels, terrain, etc)
+		// - Update nodes that need external data (terrain -> hex colors, icons -> svgs, etc)
 		// const metadataTransformer = new MetadataTransformer();
 		// ast.accept(metadataTransformer);
 		// const xyTransformer = new HexXYTransformer();

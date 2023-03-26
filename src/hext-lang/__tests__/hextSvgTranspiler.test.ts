@@ -1,4 +1,4 @@
-import { HextSVGTranspiler } from "./hextSvgTranspiler";
+import { HextSVGTranspiler } from "../hextSvgTranspiler";
 
 test("simple test", () => {
 	const map = "0000 water";

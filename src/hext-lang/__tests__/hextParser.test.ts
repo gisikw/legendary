@@ -1,5 +1,5 @@
-import { HextLexer } from "./hextLexer";
-import { HextParser } from "./hextParser";
+import { HextLexer } from "../hextLexer";
+import { HextParser } from "../hextParser";
 
 test("simple test", () => {
 	const map = `
