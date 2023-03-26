@@ -1,84 +1,87 @@
-import { TokenType, Token } from './types';
+import { TokenType, Token } from "./types";
 
 interface ASTNode {
-  type: string;
-  children?: Record<string, any>;
+	type: string;
+	children?: Record<string, any>;
 }
 
 interface Hextmap extends ASTNode {
-  type: 'hextmap';
-  statements: Statement[];
+	type: "hextmap";
+	statements: Statement[];
 }
 
 type Statement = Metadata | HexDefinition | PathDefinition | EmptyLine;
 
 interface Metadata extends ASTNode {
-  type: 'metadata';
-  key: string;
-  value: string;
+	type: "metadata";
+	key: string;
+	value: string;
 }
 
 interface HexDefinition extends ASTNode {
-  type: 'hex_definition';
-  coordinate: string;
-  link?: string;
-  terrain?: string;
-  icon?: string;
-  label?: string;
+	type: "hex_definition";
+	coordinate: string;
+	link?: string;
+	terrain?: string;
+	icon?: string;
+	label?: string;
 }
 
 interface PathDefinition extends ASTNode {
-  type: 'path_definition';
-  coordinates: string[];
-  pathType: string;
-  label?: string;
+	type: "path_definition";
+	coordinates: string[];
+	pathType: string;
+	label?: string;
 }
 
 interface EmptyLine extends ASTNode {
-  type: 'empty_line';
+	type: "empty_line";
 }
 
 export class HextParser {
-  private tokens: Token[];
-  private position: number;
+	private tokens: Token[];
+	private position: number;
 
-  constructor(tokens: Token[]) {
-    this.tokens = tokens;
-    this.position = 0;
-  }
+	constructor(tokens: Token[]) {
+		this.tokens = tokens;
+		this.position = 0;
+	}
 
-  parse(): Hextmap {
-    const hextmap: Hextmap = { type: 'hextmap', statements: [] };
+	parse(): Hextmap {
+		const hextmap: Hextmap = { type: "hextmap", statements: [] };
 
-    while (this.position < this.tokens.length) {
-		const statement = this.parseStatement();
-		if (statement.type !== "empty_line") hextmap.statements.push(statement);
-    }
+		while (this.position < this.tokens.length) {
+			const statement = this.parseStatement();
+			if (statement.type !== "empty_line")
+				hextmap.statements.push(statement);
+		}
 
-    return hextmap;
-  }
+		return hextmap;
+	}
 
-  private parseStatement(): Statement {
-	this.consumeWhitespace();
-    switch (this.peek().type) {
-		case TokenType.WORD:
-			return this.parseMetadata();
-		  case TokenType.COORDINATE:
-			if (this.lookahead().type === TokenType.DASH) {
-				return this.parsePathDefinition();
-			} else {
-				return this.parseHexDefinition();
-			}
-		case TokenType.NEWLINE:
-			return this.parseEmptyLine();
-		default:
-			throw new Error(`Unexpected token type: ${TokenType[this.peek().type]}`);
-    }
-  }
+	private parseStatement(): Statement {
+		this.consumeWhitespace();
+		switch (this.peek().type) {
+			case TokenType.WORD:
+				return this.parseMetadata();
+			case TokenType.COORDINATE:
+				if (this.lookahead().type === TokenType.DASH) {
+					return this.parsePathDefinition();
+				} else {
+					return this.parseHexDefinition();
+				}
+			case TokenType.NEWLINE:
+				return this.parseEmptyLine();
+			default:
+				throw new Error(
+					`Unexpected token type: ${TokenType[this.peek().type]}`
+				);
+		}
+	}
 
 	private parseEmptyLine(): EmptyLine {
 		this.consumeToken(TokenType.NEWLINE);
-		return { type: 'empty_line' };
+		return { type: "empty_line" };
 	}
 
 	private parseMetadata(): Metadata {
@@ -87,16 +90,16 @@ export class HextParser {
 
 		this.consumeWhitespace();
 		this.consumeToken(TokenType.NEWLINE);
-		return { 
-			type: 'metadata',
-			key, 
-			value 
+		return {
+			type: "metadata",
+			key,
+			value,
 		};
 	}
 
 	private parseKey(): string {
 		this.consumeWhitespace();
-		let result = '';
+		let result = "";
 		while (this.peek().type !== TokenType.COLON) {
 			result = result + this.consumeToken(this.peek().type).value;
 		}
@@ -106,7 +109,7 @@ export class HextParser {
 
 	private parseValue(): string {
 		this.consumeWhitespace();
-		let result = '';
+		let result = "";
 		while (this.peek().type !== TokenType.NEWLINE) {
 			result = result + this.consumeToken(this.peek().type).value;
 		}
@@ -119,12 +122,12 @@ export class HextParser {
 		const terrain = this.parseTerrain();
 		const icon = this.parseIcon();
 		const label = this.parseLabel();
-		
+
 		this.consumeWhitespace();
 		this.consumeToken(TokenType.NEWLINE);
 
 		return {
-			type: 'hex_definition',
+			type: "hex_definition",
 			coordinate,
 			link,
 			terrain,
@@ -142,7 +145,7 @@ export class HextParser {
 		this.consumeWhitespace();
 		if (this.peek().type === TokenType.DOUBLE_OPEN_BRACKET) {
 			this.consumeToken(TokenType.DOUBLE_OPEN_BRACKET);
-			let result = '';
+			let result = "";
 			while (this.peek().type !== TokenType.DOUBLE_CLOSE_BRACKET) {
 				result = result + this.consumeToken(this.peek().type).value;
 			}
@@ -169,7 +172,7 @@ export class HextParser {
 		this.consumeWhitespace();
 		if (this.peek().type === TokenType.QUOTE) {
 			this.consumeToken(TokenType.QUOTE);
-			let result = '';
+			let result = "";
 			while (this.peek().type !== TokenType.QUOTE) {
 				result = result + this.consumeToken(this.peek().type).value;
 			}
@@ -192,15 +195,16 @@ export class HextParser {
 		this.consumeToken(TokenType.NEWLINE);
 
 		return {
-			type: 'path_definition',
+			type: "path_definition",
 			coordinates,
 			pathType,
-			label
+			label,
 		};
 	}
 
 	private parsePathCoordinate(): string | undefined {
-		if (this.peek().type === TokenType.DASH) this.consumeToken(TokenType.DASH);
+		if (this.peek().type === TokenType.DASH)
+			this.consumeToken(TokenType.DASH);
 		if (this.peek().type === TokenType.COORDINATE) {
 			return this.consumeToken(TokenType.COORDINATE).value;
 		}
@@ -215,7 +219,7 @@ export class HextParser {
 		this.consumeWhitespace();
 		if (this.peek().type === TokenType.QUOTE) {
 			this.consumeToken(TokenType.QUOTE);
-			let result = '';
+			let result = "";
 			while (this.peek().type !== TokenType.QUOTE) {
 				result = result + this.consumeToken(this.peek().type).value;
 			}
@@ -229,18 +233,23 @@ export class HextParser {
 	}
 
 	private lookahead(): Token {
-		return this.tokens[this.position+1];
+		return this.tokens[this.position + 1];
 	}
 
 	private consumeWhitespace(): void {
-		while (this.peek().type === TokenType.WHITESPACE) this.consumeToken(TokenType.WHITESPACE);
+		while (this.peek().type === TokenType.WHITESPACE)
+			this.consumeToken(TokenType.WHITESPACE);
 	}
 
 	private consumeToken(expectedType: TokenType): Token {
 		const currentToken = this.peek();
 
 		if (currentToken.type !== expectedType) {
-			throw new Error(`Expected token of type '${TokenType[expectedType]}', but found '${TokenType[currentToken.type]}' instead.`);
+			throw new Error(
+				`Expected token of type '${
+					TokenType[expectedType]
+				}', but found '${TokenType[currentToken.type]}' instead.`
+			);
 		}
 
 		this.position++;

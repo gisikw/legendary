@@ -1,5 +1,5 @@
-import { HextLexer } from './hextLexer';
-import { HextParser } from './hextParser';
+import { HextLexer } from "./hextLexer";
+import { HextParser } from "./hextParser";
 
 // import MetadataTransformer from './MetadataTransformer';
 // import HexXYTransformer from './HexXYTransformer';
