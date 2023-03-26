@@ -1,15 +1,16 @@
-import { lexer } from './lexer';
-import { Parser } from './parser';
+import { HextLexer } from './hextLexer';
+import { HextParser } from './hextParser';
 
 test('simple test', () => {
-	const tokens = lexer(`
+	const map = `
 	my map title : greatest map ever
 	0202 water
 	0502 [[The cool link]] forest castle "My Evil Castle"
 	0306 island "My Island"
-	0202-0306 river
-`);
-	const parser = new Parser(tokens);
+	0202-0306 river`;
+	const lexer = new HextLexer(map);
+	const tokens = lexer.tokenize();
+	const parser = new HextParser(tokens);
 	const ast = parser.parse();
 	expect(ast).toEqual({
 		type: 'hextmap',
@@ -44,8 +45,9 @@ map title : The greatest map ever
 0001-0101-0102 road
 0102-0100 river "The River Label"
 `;
-	const tokens = lexer(map);
-	const parser = new Parser(tokens);
+	const lexer = new HextLexer(map);
+	const tokens = lexer.tokenize();
+	const parser = new HextParser(tokens);
 	const ast = parser.parse();
 	expect(ast).toEqual({
 		type: 'hextmap',

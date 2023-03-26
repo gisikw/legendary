@@ -12,13 +12,16 @@ function isCoordinateSequence(input: string): boolean {
 	return /\d{4}-(?:\d{4}-)*\d{4}/.test(input);
 }
 
-export function lexer(input: string): Token[] {
+export class HextLexer {
+	constructor(private input: string) {}
+
+	public tokenize(): Token[] {
   const tokens: Token[] = [];
   let position = 0;
   let isBracketed = false;
 
-  while (position < input.length) {
-    const char = input[position];
+  while (position < this.input.length) {
+    const char = this.input[position];
 
     if (char === '\n') {
       tokens.push({ type: TokenType.NEWLINE, value: char });
@@ -29,11 +32,11 @@ export function lexer(input: string): Token[] {
     } else if (char === ':' && !isBracketed) {
       tokens.push({ type: TokenType.COLON, value: char });
       position++;
-    } else if (char === '[' && input[position + 1] === '[') {
+    } else if (char === '[' && this.input[position + 1] === '[') {
       tokens.push({ type: TokenType.DOUBLE_OPEN_BRACKET, value: '[[' });
       position += 2;
 	  isBracketed = true;
-    } else if (char === ']' && input[position + 1] === ']') {
+    } else if (char === ']' && this.input[position + 1] === ']') {
       tokens.push({ type: TokenType.DOUBLE_CLOSE_BRACKET, value: ']]' });
       position += 2;
 	  isBracketed = false;
@@ -46,11 +49,11 @@ export function lexer(input: string): Token[] {
 	  const terminators = ['\n', ' ', '\t', '[', ']', '"'];
 	  if (!isBracketed) terminators.push(':');
       while (
-        position < input.length &&
-        !terminators.includes(input[position]) &&
-        isNonWhitespaceCharacter(input[position])
+        position < this.input.length &&
+        !terminators.includes(this.input[position]) &&
+        isNonWhitespaceCharacter(this.input[position])
       ) {
-        tokenValue += input[position];
+        tokenValue += this.input[position];
         position++;
       }
 
@@ -69,5 +72,6 @@ export function lexer(input: string): Token[] {
 
   tokens.push({ type: TokenType.NEWLINE, value: "\n" });
   return tokens;
-}
 
+	}
+}

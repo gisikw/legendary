@@ -1,8 +1,8 @@
-import { lexer } from './lexer';
+import { HextLexer } from './hextLexer';
 import { TokenType } from './types';
 
 test('tokenize sample inputs', () => {
-	expect(lexer('0102-0100 river "The River Label"')).toEqual([
+	expect((new HextLexer('0102-0100 river "The River Label"')).tokenize()).toEqual([
 		{ type: TokenType.COORDINATE, value: '0102' },
 		{ type: TokenType.DASH, value: '-' },
 		{ type: TokenType.COORDINATE, value: '0100' },
@@ -19,14 +19,14 @@ test('tokenize sample inputs', () => {
 		{ type: TokenType.NEWLINE, value: '\n' }
 	]);
 
-	expect(lexer('0202 water')).toEqual([
+	expect((new HextLexer('0202 water')).tokenize()).toEqual([
 		{ type: TokenType.COORDINATE, value: '0202' },
 		{ type: TokenType.WHITESPACE, value: ' ' },
 		{ type: TokenType.WORD, value: 'water' },
 		{ type: TokenType.NEWLINE, value: '\n' }
 	]);
 
-	expect(lexer('my Title :the greatest title in the world')).toEqual([
+	expect((new HextLexer('my Title :the greatest title in the world')).tokenize()).toEqual([
 		{ type: TokenType.WORD, value: 'my' },
 		{ type: TokenType.WHITESPACE, value: ' ' },
 		{ type: TokenType.WORD, value: 'Title' },
@@ -46,10 +46,10 @@ test('tokenize sample inputs', () => {
 		{ type: TokenType.NEWLINE, value: '\n' }
 	]);
 
-	expect(lexer(`
+	expect((new HextLexer(`
 0201 [[My cool link]] forest castle "The Evil Castle"
 0201-0202 road
-`	)).toEqual([
+`	)).tokenize()).toEqual([
 		{ type: TokenType.NEWLINE, value: '\n' },
 		{ type: TokenType.COORDINATE, value: '0201' },
 		{ type: TokenType.WHITESPACE, value: ' ' },
@@ -82,7 +82,7 @@ test('tokenize sample inputs', () => {
 		{ type: TokenType.NEWLINE, value: '\n' }
 	]);
 
-	expect(lexer('0202-0203 cool-label')).toEqual([
+	expect((new HextLexer('0202-0203 cool-label')).tokenize()).toEqual([
 		{ type: TokenType.COORDINATE, value: '0202' },
 		{ type: TokenType.DASH, value: '-' },
 		{ type: TokenType.COORDINATE, value: '0203' },
@@ -91,7 +91,7 @@ test('tokenize sample inputs', () => {
 		{ type: TokenType.NEWLINE, value: '\n' }
 	]);
 
-	expect(lexer('0202-0203 cool-label')).toEqual([
+	expect((new HextLexer('0202-0203 cool-label')).tokenize()).toEqual([
 		{ type: TokenType.COORDINATE, value: '0202' },
 		{ type: TokenType.DASH, value: '-' },
 		{ type: TokenType.COORDINATE, value: '0203' },
@@ -100,7 +100,7 @@ test('tokenize sample inputs', () => {
 		{ type: TokenType.NEWLINE, value: '\n' }
 	]);
 
-	expect(lexer('0104 [[Endgame: The end is near]] desert temple "The - Evil: Temple"')).toEqual([
+	expect((new HextLexer('0104 [[Endgame: The end is near]] desert temple "The - Evil: Temple"')).tokenize()).toEqual([
 		{ type: TokenType.COORDINATE, value: '0104' },
 		{ type: TokenType.WHITESPACE, value: ' ' },
 		{ type: TokenType.DOUBLE_OPEN_BRACKET, value: '[[' },

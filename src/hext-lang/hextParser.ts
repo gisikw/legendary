@@ -38,7 +38,7 @@ interface EmptyLine extends ASTNode {
   type: 'empty_line';
 }
 
-export class Parser {
+export class HextParser {
   private tokens: Token[];
   private position: number;
 
