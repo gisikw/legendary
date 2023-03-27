@@ -3,6 +3,7 @@ import { HextParser } from "./hextParser";
 import {
 	MetadataTransformer,
 	PathfindingTransformer,
+	PathHexTransformer,
 } from "./ast/transformers";
 
 // import MetadataTransformer from './MetadataTransformer';
@@ -26,10 +27,12 @@ export class HextSVGTranspiler {
 		const { metadata } = metadataTransformer;
 		const pathfindingTransformer = new PathfindingTransformer(ast);
 		pathfindingTransformer.process();
+		const pathHexTransformer = new PathHexTransformer(ast);
+		pathHexTransformer.process();
 
+		console.log(JSON.stringify(ast, null, 2));
 		return JSON.stringify(ast);
 
-		// - Turn path waypoints into hexes
 		// - Generate origins and vertices for all hexes
 		// - Turn all "renderables" into their own nodes (labels, terrain, etc)
 		// - Update nodes that need external data (terrain -> hex colors, icons -> svgs, etc)
