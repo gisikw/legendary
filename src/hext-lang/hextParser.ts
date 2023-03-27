@@ -1,42 +1,11 @@
 import { TokenType, Token } from "./types";
-
-interface ASTNode {
-	type: string;
-	children?: Record<string, any>;
-}
-
-interface Hextmap extends ASTNode {
-	type: "hextmap";
-	statements: Statement[];
-}
-
-type Statement = Metadata | HexDefinition | PathDefinition | EmptyLine;
-
-interface Metadata extends ASTNode {
-	type: "metadata";
-	key: string;
-	value: string;
-}
-
-interface HexDefinition extends ASTNode {
-	type: "hex_definition";
-	coordinate: string;
-	link?: string;
-	terrain?: string;
-	icon?: string;
-	label?: string;
-}
-
-interface PathDefinition extends ASTNode {
-	type: "path_definition";
-	coordinates: string[];
-	pathType: string;
-	label?: string;
-}
-
-interface EmptyLine extends ASTNode {
-	type: "empty_line";
-}
+import {
+	Hextmap,
+	Statement,
+	Metadata,
+	HexDefinition,
+	PathDefinition,
+} from "./ast/nodes";
 
 export class HextParser {
 	private tokens: Token[];
@@ -48,18 +17,20 @@ export class HextParser {
 	}
 
 	parse(): Hextmap {
-		const hextmap: Hextmap = { type: "hextmap", statements: [] };
+		const statements: Statement[] = [];
+		const hextmap = new Hextmap({
+			children: { statements },
+		});
 
 		while (this.position < this.tokens.length) {
 			const statement = this.parseStatement();
-			if (statement.type !== "empty_line")
-				hextmap.statements.push(statement);
+			if (statement) statements.push(statement);
 		}
 
 		return hextmap;
 	}
 
-	private parseStatement(): Statement {
+	private parseStatement(): Statement | undefined {
 		this.consumeWhitespace();
 		switch (this.peek().type) {
 			case TokenType.WORD:
@@ -71,17 +42,13 @@ export class HextParser {
 					return this.parseHexDefinition();
 				}
 			case TokenType.NEWLINE:
-				return this.parseEmptyLine();
+				this.consumeToken(TokenType.NEWLINE);
+				return;
 			default:
 				throw new Error(
 					`Unexpected token type: ${TokenType[this.peek().type]}`
 				);
 		}
-	}
-
-	private parseEmptyLine(): EmptyLine {
-		this.consumeToken(TokenType.NEWLINE);
-		return { type: "empty_line" };
 	}
 
 	private parseMetadata(): Metadata {
@@ -90,11 +57,9 @@ export class HextParser {
 
 		this.consumeWhitespace();
 		this.consumeToken(TokenType.NEWLINE);
-		return {
-			type: "metadata",
-			key,
-			value,
-		};
+		return new Metadata({
+			primitives: { key, value },
+		});
 	}
 
 	private parseKey(): string {
@@ -126,14 +91,9 @@ export class HextParser {
 		this.consumeWhitespace();
 		this.consumeToken(TokenType.NEWLINE);
 
-		return {
-			type: "hex_definition",
-			coordinate,
-			link,
-			terrain,
-			icon,
-			label,
-		};
+		return new HexDefinition({
+			primitives: { coordinate, link, terrain, icon, label },
+		});
 	}
 
 	private parseCoordinate(): string {
@@ -194,12 +154,9 @@ export class HextParser {
 		this.consumeWhitespace();
 		this.consumeToken(TokenType.NEWLINE);
 
-		return {
-			type: "path_definition",
-			coordinates,
-			pathType,
-			label,
-		};
+		return new PathDefinition({
+			primitives: { coordinates, pathType, label },
+		});
 	}
 
 	private parsePathCoordinate(): string | undefined {

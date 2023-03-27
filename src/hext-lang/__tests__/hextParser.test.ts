@@ -1,5 +1,12 @@
 import { HextLexer } from "../hextLexer";
 import { HextParser } from "../hextParser";
+import {
+	Hextmap,
+	Statement,
+	Metadata,
+	HexDefinition,
+	PathDefinition,
+} from "../ast/nodes";
 
 test("simple test", () => {
 	const map = `
@@ -12,36 +19,48 @@ test("simple test", () => {
 	const tokens = lexer.tokenize();
 	const parser = new HextParser(tokens);
 	const ast = parser.parse();
-	expect(ast).toEqual({
-		type: "hextmap",
-		statements: [
-			{
-				type: "metadata",
-				key: "my map title",
-				value: "greatest map ever",
+	expect(ast).toEqual(
+		new Hextmap({
+			children: {
+				statements: [
+					new Metadata({
+						primitives: {
+							key: "my map title",
+							value: "greatest map ever",
+						},
+					}),
+					new HexDefinition({
+						primitives: {
+							coordinate: "0202",
+							terrain: "water",
+						},
+					}),
+					new HexDefinition({
+						primitives: {
+							coordinate: "0502",
+							link: "The cool link",
+							terrain: "forest",
+							icon: "castle",
+							label: "My Evil Castle",
+						},
+					}),
+					new HexDefinition({
+						primitives: {
+							coordinate: "0306",
+							terrain: "island",
+							label: "My Island",
+						},
+					}),
+					new PathDefinition({
+						primitives: {
+							coordinates: ["0202", "0306"],
+							pathType: "river",
+						},
+					}),
+				],
 			},
-			{ type: "hex_definition", coordinate: "0202", terrain: "water" },
-			{
-				type: "hex_definition",
-				coordinate: "0502",
-				link: "The cool link",
-				terrain: "forest",
-				icon: "castle",
-				label: "My Evil Castle",
-			},
-			{
-				type: "hex_definition",
-				coordinate: "0306",
-				terrain: "island",
-				label: "My Island",
-			},
-			{
-				type: "path_definition",
-				coordinates: ["0202", "0306"],
-				pathType: "river",
-			},
-		],
-	});
+		})
+	);
 });
 
 test("stress test", () => {
@@ -69,69 +88,92 @@ map title : The greatest map ever
 	const tokens = lexer.tokenize();
 	const parser = new HextParser(tokens);
 	const ast = parser.parse();
-	expect(ast).toEqual({
-		type: "hextmap",
-		statements: [
-			{ type: "metadata", key: "orientation", value: "flat-top" },
-			{
-				type: "metadata",
-				key: "map title",
-				value: "The greatest map ever",
+	expect(ast).toEqual(
+		new Hextmap({
+			children: {
+				statements: [
+					new Metadata({
+						primitives: { key: "orientation", value: "flat-top" },
+					}),
+					new Metadata({
+						primitives: {
+							key: "map title",
+							value: "The greatest map ever",
+						},
+					}),
+					new HexDefinition({
+						primitives: {
+							coordinate: "0000",
+							link: "Link to a Water File",
+							terrain: "water",
+						},
+					}),
+					new HexDefinition({
+						primitives: {
+							coordinate: "0001",
+							terrain: "forest",
+							label: "The Woods",
+						},
+					}),
+					new HexDefinition({
+						primitives: {
+							coordinate: "0100",
+							terrain: "water",
+						},
+					}),
+					new HexDefinition({
+						primitives: {
+							coordinate: "0101",
+							terrain: "grass",
+							icon: "castle-icon",
+							label: "The Keep",
+						},
+					}),
+					new HexDefinition({
+						primitives: {
+							coordinate: "0102",
+							link: "The Fields",
+							terrain: "grass",
+							label: "The Fields",
+						},
+					}),
+					new HexDefinition({
+						primitives: {
+							coordinate: "0103",
+							link: "Pyramid's Panic",
+							terrain: "desert",
+							icon: "pyramid",
+						},
+					}),
+					new HexDefinition({
+						primitives: {
+							coordinate: "0104",
+							link: "Endgame: The end is near",
+							terrain: "desert",
+							icon: "temple",
+							label: "The - Evil: Temple",
+						},
+					}),
+					new HexDefinition({
+						primitives: {
+							coordinate: "0203",
+						},
+					}),
+					new PathDefinition({
+						primitives: {
+							coordinates: ["0001", "0101", "0102"],
+							pathType: "road",
+						},
+					}),
+					new PathDefinition({
+						primitives: {
+							coordinates: ["0102", "0100"],
+							pathType: "river",
+							label: "The River Label",
+						},
+					}),
+				],
 			},
-			{
-				type: "hex_definition",
-				coordinate: "0000",
-				link: "Link to a Water File",
-				terrain: "water",
-			},
-			{
-				type: "hex_definition",
-				coordinate: "0001",
-				terrain: "forest",
-				label: "The Woods",
-			},
-			{ type: "hex_definition", coordinate: "0100", terrain: "water" },
-			{
-				type: "hex_definition",
-				coordinate: "0101",
-				terrain: "grass",
-				icon: "castle-icon",
-				label: "The Keep",
-			},
-			{
-				type: "hex_definition",
-				coordinate: "0102",
-				link: "The Fields",
-				terrain: "grass",
-				label: "The Fields",
-			},
-			{
-				type: "hex_definition",
-				coordinate: "0103",
-				link: "Pyramid's Panic",
-				terrain: "desert",
-				icon: "pyramid",
-			},
-			{
-				type: "hex_definition",
-				coordinate: "0104",
-				link: "Endgame: The end is near",
-				terrain: "desert",
-				icon: "temple",
-				label: "The - Evil: Temple",
-			},
-			{ type: "hex_definition", coordinate: "0203" },
-			{
-				type: "path_definition",
-				coordinates: ["0001", "0101", "0102"],
-				pathType: "road",
-			},
-			{
-				type: "path_definition",
-				coordinates: ["0102", "0100"],
-				pathType: "river",
-				label: "The River Label",
-			},
-		],
-	});
+		})
+	);
 });
