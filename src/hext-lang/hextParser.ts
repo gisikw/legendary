@@ -82,7 +82,7 @@ export class HextParser {
 	}
 
 	private parseHexDefinition(): HexDefinition {
-		const coordinate = this.parseCoordinate();
+		const coordinates = this.parseCoordinate();
 		const link = this.parseLink();
 		const terrain = this.parseTerrain();
 		const icon = this.parseIcon();
@@ -92,7 +92,7 @@ export class HextParser {
 		this.consumeToken(TokenType.NEWLINE);
 
 		return new HexDefinition({
-			primitives: { coordinate, link, terrain, icon, label },
+			primitives: { coordinates, link, terrain, icon, label },
 		});
 	}
 

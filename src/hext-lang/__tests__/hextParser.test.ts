@@ -31,13 +31,13 @@ test("simple test", () => {
 					}),
 					new HexDefinition({
 						primitives: {
-							coordinate: "0202",
+							coordinates: "0202",
 							terrain: "water",
 						},
 					}),
 					new HexDefinition({
 						primitives: {
-							coordinate: "0502",
+							coordinates: "0502",
 							link: "The cool link",
 							terrain: "forest",
 							icon: "castle",
@@ -46,7 +46,7 @@ test("simple test", () => {
 					}),
 					new HexDefinition({
 						primitives: {
-							coordinate: "0306",
+							coordinates: "0306",
 							terrain: "island",
 							label: "My Island",
 						},
@@ -103,27 +103,27 @@ map title : The greatest map ever
 					}),
 					new HexDefinition({
 						primitives: {
-							coordinate: "0000",
+							coordinates: "0000",
 							link: "Link to a Water File",
 							terrain: "water",
 						},
 					}),
 					new HexDefinition({
 						primitives: {
-							coordinate: "0001",
+							coordinates: "0001",
 							terrain: "forest",
 							label: "The Woods",
 						},
 					}),
 					new HexDefinition({
 						primitives: {
-							coordinate: "0100",
+							coordinates: "0100",
 							terrain: "water",
 						},
 					}),
 					new HexDefinition({
 						primitives: {
-							coordinate: "0101",
+							coordinates: "0101",
 							terrain: "grass",
 							icon: "castle-icon",
 							label: "The Keep",
@@ -131,7 +131,7 @@ map title : The greatest map ever
 					}),
 					new HexDefinition({
 						primitives: {
-							coordinate: "0102",
+							coordinates: "0102",
 							link: "The Fields",
 							terrain: "grass",
 							label: "The Fields",
@@ -139,7 +139,7 @@ map title : The greatest map ever
 					}),
 					new HexDefinition({
 						primitives: {
-							coordinate: "0103",
+							coordinates: "0103",
 							link: "Pyramid's Panic",
 							terrain: "desert",
 							icon: "pyramid",
@@ -147,7 +147,7 @@ map title : The greatest map ever
 					}),
 					new HexDefinition({
 						primitives: {
-							coordinate: "0104",
+							coordinates: "0104",
 							link: "Endgame: The end is near",
 							terrain: "desert",
 							icon: "temple",
@@ -156,7 +156,7 @@ map title : The greatest map ever
 					}),
 					new HexDefinition({
 						primitives: {
-							coordinate: "0203",
+							coordinates: "0203",
 						},
 					}),
 					new PathDefinition({
