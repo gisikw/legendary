@@ -1,9 +1,21 @@
-import type { Hextmap, Metadata, HexDefinition, PathDefinition } from "./nodes";
+import type {
+	Hextmap,
+	Metadata,
+	HexDefinition,
+	PathDefinition,
+	HexGeometry,
+} from "./nodes";
 import { ASTNode } from "./astNode";
 
 export abstract class Visitor {
 	protected ast: ASTNode;
 	private parentNodeStack: ASTNode[] = [];
+
+	static process(ast: ASTNode) {
+		class Klass extends this {}
+		const instance = new Klass(ast);
+		instance.process();
+	}
 
 	constructor(ast: ASTNode) {
 		this.ast = ast;
@@ -26,6 +38,10 @@ export abstract class Visitor {
 	}
 
 	visitPathDefinition(node: PathDefinition): void {
+		this.visitChildren(node);
+	}
+
+	visitHexGeometry(node: HexGeometry): void {
 		this.visitChildren(node);
 	}
 

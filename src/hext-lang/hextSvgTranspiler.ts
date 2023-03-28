@@ -2,8 +2,8 @@ import { HextLexer } from "./hextLexer";
 import { HextParser } from "./hextParser";
 import {
 	MetadataTransformer,
+	HexGeometryTransformer,
 	PathfindingTransformer,
-	PathHexTransformer,
 } from "./ast/transformers";
 
 // import MetadataTransformer from './MetadataTransformer';
@@ -25,10 +25,8 @@ export class HextSVGTranspiler {
 		const metadataTransformer = new MetadataTransformer(ast);
 		metadataTransformer.process();
 		const { metadata } = metadataTransformer;
-		const pathfindingTransformer = new PathfindingTransformer(ast);
-		pathfindingTransformer.process();
-		const pathHexTransformer = new PathHexTransformer(ast);
-		pathHexTransformer.process();
+		HexGeometryTransformer.process(ast);
+		PathfindingTransformer.process(ast);
 
 		console.log(JSON.stringify(ast, null, 2));
 		return JSON.stringify(ast);
@@ -36,10 +34,6 @@ export class HextSVGTranspiler {
 		// - Generate origins and vertices for all hexes
 		// - Turn all "renderables" into their own nodes (labels, terrain, etc)
 		// - Update nodes that need external data (terrain -> hex colors, icons -> svgs, etc)
-		// const metadataTransformer = new MetadataTransformer();
-		// ast.accept(metadataTransformer);
-		// const xyTransformer = new HexXYTransformer();
-		// ast.accept(xyTransformer);
 
 		// Generating SVG output
 		// const svgGenerator = new SVGGenerator(metadataTransformer.metadata);

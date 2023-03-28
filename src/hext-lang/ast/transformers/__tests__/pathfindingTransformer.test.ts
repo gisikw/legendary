@@ -1,12 +1,13 @@
 import { HextLexer } from "../../../HextLexer";
 import { HextParser } from "../../../HextParser";
-import { PathfindingTransformer } from "../pathfindingTransformer";
+import { PathfindingTransformer, HexGeometryTransformer } from "..";
 import {
 	Hextmap,
 	Statement,
 	Metadata,
 	HexDefinition,
 	PathDefinition,
+	HexGeometry,
 } from "../../nodes";
 
 test("enhance PathDefinition nodes by pathfinding between waypoint coordinates", () => {
@@ -15,24 +16,24 @@ test("enhance PathDefinition nodes by pathfinding between waypoint coordinates",
 	const tokens = lexer.tokenize();
 	const parser = new HextParser(tokens);
 	const ast = parser.parse();
-	const transformer = new PathfindingTransformer(ast, "flat-top");
-	transformer.process();
+	HexGeometryTransformer.process(ast);
+	PathfindingTransformer.process(ast);
 	expect(ast).toEqual(
 		new Hextmap({
 			children: {
 				statements: [
 					new PathDefinition({
-						primitives: {
-							coordinates: [
-								"0000",
-								"0100",
-								"0201",
-								"0301",
-								"0401",
-								"0500",
+						children: {
+							hexGeometries: [
+								HexGeometry.fromCoord("0000"),
+								HexGeometry.fromCoord("0100"),
+								HexGeometry.fromCoord("0201"),
+								HexGeometry.fromCoord("0301"),
+								HexGeometry.fromCoord("0401"),
+								HexGeometry.fromCoord("0500"),
 							],
-							pathType: "road",
 						},
+						primitives: { pathType: "road" },
 					}),
 				],
 			},
