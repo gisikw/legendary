@@ -9,16 +9,18 @@ import { ASTNode } from "./astNode";
 
 export abstract class Visitor {
 	protected ast: ASTNode;
+	protected options: Record<string, any>;
 	private parentNodeStack: ASTNode[] = [];
 
-	static process(ast: ASTNode) {
+	static process(ast: ASTNode, options?: Record<string, any>) {
 		class Klass extends this {}
-		const instance = new Klass(ast);
+		const instance = new Klass(ast, options || {});
 		instance.process();
 	}
 
-	constructor(ast: ASTNode) {
+	constructor(ast: ASTNode, options?: Record<string, any>) {
 		this.ast = ast;
+		this.options = options || {};
 	}
 
 	process() {

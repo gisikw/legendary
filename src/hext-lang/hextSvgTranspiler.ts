@@ -4,6 +4,7 @@ import {
 	MetadataTransformer,
 	HexGeometryTransformer,
 	PathfindingTransformer,
+	HexPixelTransformer,
 } from "./ast/transformers";
 
 // import MetadataTransformer from './MetadataTransformer';
@@ -27,11 +28,11 @@ export class HextSVGTranspiler {
 		const { metadata } = metadataTransformer;
 		HexGeometryTransformer.process(ast);
 		PathfindingTransformer.process(ast);
+		HexPixelTransformer.process(ast, { size: 500 });
 
 		console.log(JSON.stringify(ast, null, 2));
 		return JSON.stringify(ast);
 
-		// - Generate origins and vertices for all hexes
 		// - Turn all "renderables" into their own nodes (labels, terrain, etc)
 		// - Update nodes that need external data (terrain -> hex colors, icons -> svgs, etc)
 
