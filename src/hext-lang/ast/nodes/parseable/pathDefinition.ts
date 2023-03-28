@@ -1,5 +1,5 @@
-import { ASTNode } from "../astNode";
-import type { Visitor } from "../visitor";
+import { ASTNode } from "../../astNode";
+import type { Visitor } from "../../visitor";
 
 export class PathDefinition extends ASTNode {
 	accept(visitor: Visitor): void {
