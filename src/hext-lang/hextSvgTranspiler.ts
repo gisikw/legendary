@@ -6,6 +6,7 @@ import {
 	PathfindingTransformer,
 	HexPixelTransformer,
 	RenderableTransformer,
+	TerrainTransformer,
 } from "./ast/transformers";
 
 // import MetadataTransformer from './MetadataTransformer';
@@ -28,14 +29,13 @@ export class HextSVGTranspiler {
 		metadataTransformer.process();
 		const { metadata } = metadataTransformer;
 		RenderableTransformer.process(ast);
+		TerrainTransformer.process(ast);
 		HexGeometryTransformer.process(ast);
 		PathfindingTransformer.process(ast);
 		HexPixelTransformer.process(ast, { size: 500 });
 
 		console.log(JSON.stringify(ast, null, 2));
 		return JSON.stringify(ast);
-
-		// - Update nodes that need external data (terrain -> hex colors, icons -> svgs, etc)
 
 		// Generating SVG output
 		// const svgGenerator = new SVGGenerator(metadataTransformer.metadata);
