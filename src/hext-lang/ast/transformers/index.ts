@@ -1,3 +1,4 @@
+export * from "./coordBoundsTransformer";
 export * from "./hexGeometryTransformer";
 export * from "./hexPixelTransformer";
 export * from "./metadataTransformer";

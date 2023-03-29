@@ -1,18 +1,14 @@
 import { HextLexer } from "./hextLexer";
 import { HextParser } from "./hextParser";
 import {
-	MetadataTransformer,
+	CoordBoundsTransformer,
 	HexGeometryTransformer,
-	PathfindingTransformer,
 	HexPixelTransformer,
+	MetadataTransformer,
+	PathfindingTransformer,
 	RenderableTransformer,
 	TerrainTransformer,
 } from "./ast/transformers";
-
-// import MetadataTransformer from './MetadataTransformer';
-// import HexXYTransformer from './HexXYTransformer';
-// import SVGGenerator from './SVGGenerator';
-// import { ASTNode } from './types';
 
 export class HextSVGTranspiler {
 	constructor(private input: string) {}
@@ -33,8 +29,9 @@ export class HextSVGTranspiler {
 		HexGeometryTransformer.process(ast);
 		PathfindingTransformer.process(ast);
 		HexPixelTransformer.process(ast, { size: 500 });
+		CoordBoundsTransformer.process(ast, { size: 500 });
 
-		console.log(JSON.stringify(ast, null, 2));
+		// console.log(JSON.stringify(ast, null, 2));
 		return JSON.stringify(ast);
 
 		// Generating SVG output
