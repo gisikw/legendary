@@ -8,6 +8,7 @@ import {
 	PathfindingTransformer,
 	RenderableTransformer,
 	TerrainTransformer,
+	SVGTagTransformer,
 } from "./ast/transformers";
 
 export class HextSVGTranspiler {
@@ -29,9 +30,10 @@ export class HextSVGTranspiler {
 		HexGeometryTransformer.process(ast);
 		PathfindingTransformer.process(ast);
 		HexPixelTransformer.process(ast, { size: 500 });
-		CoordBoundsTransformer.process(ast, { size: 500 });
+		CoordBoundsTransformer.process(ast);
+		SVGTagTransformer.process(ast);
 
-		// console.log(JSON.stringify(ast, null, 2));
+		console.log(JSON.stringify(ast, null, 2));
 		return JSON.stringify(ast);
 
 		// Generating SVG output
