@@ -1,10 +1,3 @@
-import type {
-	Hextmap,
-	Metadata,
-	HexDefinition,
-	PathDefinition,
-	HexGeometry,
-} from "./nodes";
 import { ASTNode } from "./astNode";
 
 export abstract class Visitor {
@@ -27,23 +20,39 @@ export abstract class Visitor {
 		this.visit(this.ast);
 	}
 
-	visitHextmap(node: Hextmap): void {
+	visitHexCoord(node: ASTNode): void {
 		this.visitChildren(node);
 	}
 
-	visitMetadata(node: Metadata): void {
+	visitHexDefinition(node: ASTNode): void {
 		this.visitChildren(node);
 	}
 
-	visitHexDefinition(node: HexDefinition): void {
+	visitHexGeometry(node: ASTNode): void {
 		this.visitChildren(node);
 	}
 
-	visitPathDefinition(node: PathDefinition): void {
+	visitHexIcon(node: ASTNode): void {
 		this.visitChildren(node);
 	}
 
-	visitHexGeometry(node: HexGeometry): void {
+	visitHexLabel(node: ASTNode): void {
+		this.visitChildren(node);
+	}
+
+	visitHextmap(node: ASTNode): void {
+		this.visitChildren(node);
+	}
+
+	visitMetadata(node: ASTNode): void {
+		this.visitChildren(node);
+	}
+
+	visitPathDefinition(node: ASTNode): void {
+		this.visitChildren(node);
+	}
+
+	visitPathLabel(node: ASTNode): void {
 		this.visitChildren(node);
 	}
 
