@@ -32,14 +32,20 @@ export class HextLexer {
 			} else if (char === ":" && !isBracketed) {
 				tokens.push({ type: TokenType.COLON, value: char });
 				position++;
-			} else if (char === "[" && this.input.charAt(position + 1) === "[") {
+			} else if (
+				char === "[" &&
+				this.input.charAt(position + 1) === "["
+			) {
 				tokens.push({
 					type: TokenType.DOUBLE_OPEN_BRACKET,
 					value: "[[",
 				});
 				position += 2;
 				isBracketed = true;
-			} else if (char === "]" && this.input.charAt(position + 1) === "]") {
+			} else if (
+				char === "]" &&
+				this.input.charAt(position + 1) === "]"
+			) {
 				tokens.push({
 					type: TokenType.DOUBLE_CLOSE_BRACKET,
 					value: "]]",

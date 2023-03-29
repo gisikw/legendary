@@ -26,11 +26,17 @@ export class CoordBoundsTransformer extends Visitor {
 	}
 
 	override visitHexGeometry(node: ASTNode) {
-		node.primitives['vertices'].forEach((vertex: Record<string, number>) => {
-			if (vertex['x'] && vertex['x'] > this.maxX) this.maxX = vertex['x'];
-			if (vertex['x'] && vertex['x'] < this.minX) this.minX = vertex['x'];
-			if (vertex['y'] && vertex['y'] > this.maxY) this.maxY = vertex['y'];
-			if (vertex['y'] && vertex['y'] < this.minY) this.minY = vertex['y'];
-		});
+		node.primitives["vertices"].forEach(
+			(vertex: Record<string, number>) => {
+				if (vertex["x"] && vertex["x"] > this.maxX)
+					this.maxX = vertex["x"];
+				if (vertex["x"] && vertex["x"] < this.minX)
+					this.minX = vertex["x"];
+				if (vertex["y"] && vertex["y"] > this.maxY)
+					this.maxY = vertex["y"];
+				if (vertex["y"] && vertex["y"] < this.minY)
+					this.minY = vertex["y"];
+			}
+		);
 	}
 }

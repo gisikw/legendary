@@ -1,11 +1,6 @@
 import { HextLexer } from "../hextLexer";
 import { HextParser } from "../hextParser";
-import {
-	Hextmap,
-	Metadata,
-	HexDefinition,
-	PathDefinition,
-} from "../ast/nodes";
+import { Hextmap, Metadata, HexDefinition, PathDefinition } from "../ast/nodes";
 
 test("simple test", () => {
 	const map = `

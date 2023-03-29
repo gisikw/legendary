@@ -11,7 +11,7 @@ export class MetadataTransformer extends Visitor {
 
 	override visitMetadata(node: ASTNode) {
 		Object.assign(this.metadata, {
-			[node.primitives['key']]: node.primitives['value'],
+			[node.primitives["key"]]: node.primitives["value"],
 		});
 		this.removeNode(node);
 	}

@@ -35,8 +35,8 @@ test("finds the min and max coordinates within a Hextmap and adds them to the He
 		},
 	});
 	CoordBoundsTransformer.process(ast);
-	expect(ast.primitives['minX']).toBe(-100);
-	expect(ast.primitives['maxX']).toBe(200);
-	expect(ast.primitives['minY']).toBe(-200);
-	expect(ast.primitives['maxY']).toBe(200);
+	expect(ast.primitives["minX"]).toBe(-100);
+	expect(ast.primitives["maxX"]).toBe(200);
+	expect(ast.primitives["minY"]).toBe(-200);
+	expect(ast.primitives["maxY"]).toBe(200);
 });

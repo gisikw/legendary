@@ -20,18 +20,18 @@ export class PathfindingTransformer extends Visitor {
 	}
 
 	override visitPathDefinition(node: ASTNode) {
-		const hexGeometries = node.children['hexGeometries'] as HexGeometry[];
+		const hexGeometries = node.children["hexGeometries"] as HexGeometry[];
 		const fullPath: HexGeometry[] = [];
 
 		for (let i = 0; i < hexGeometries.length - 1; i++) {
 			const hex = hexGeometries[i];
-			const next = hexGeometries[i+1];
+			const next = hexGeometries[i + 1];
 			if (hex && next) fullPath.push(...this.findShortestPath(hex, next));
 		}
 		const last = hexGeometries[hexGeometries.length - 1];
 		if (last) fullPath.push(last);
 
-		node.children['hexGeometries'] = fullPath;
+		node.children["hexGeometries"] = fullPath;
 	}
 
 	findShortestPath(start: HexGeometry, goal: HexGeometry): HexGeometry[] {

@@ -3,9 +3,14 @@
 	"version": "0.0.1",
 	"description": "TODO",
 	"main": "dist/main.js",
-        "types": "dist/index.d.ts",
-        "type": "module",
-        "files": ["dist","LICENSE","README.md","package.json"],
+	"types": "dist/index.d.ts",
+	"type": "module",
+	"files": [
+		"dist",
+		"LICENSE",
+		"README.md",
+		"package.json"
+	],
 	"scripts": {
 		"build": "tsc",
 		"test": "jest",

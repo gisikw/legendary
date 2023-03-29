@@ -15,8 +15,8 @@ export class TerrainTransformer extends Visitor {
 	override visitHexDefinition(node: ASTNode) {
 		Object.assign(
 			node.primitives,
-			TERRAIN_DICTIONARY[node.primitives['terrain']] || DEFAULT_ATTRIBUTES
+			TERRAIN_DICTIONARY[node.primitives["terrain"]] || DEFAULT_ATTRIBUTES
 		);
-		delete node.primitives['terrain'];
+		delete node.primitives["terrain"];
 	}
 }
