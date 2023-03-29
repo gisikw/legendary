@@ -17,7 +17,7 @@ export class RenderableTransformer extends Visitor {
 		}
 		if (node.primitives.label) {
 			renderables.push(
-				new HexLabel({ primitives: { name: node.primitives.label } })
+				new HexLabel({ primitives: { text: node.primitives.label } })
 			);
 			delete node.primitives.label;
 		}

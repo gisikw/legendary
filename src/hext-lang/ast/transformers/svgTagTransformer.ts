@@ -7,9 +7,10 @@ export class SVGTagTransformer extends Visitor {
 		const { minX, maxX, minY, maxY } = node.primitives;
 		const width = maxX - minX;
 		const height = maxY - minY;
-		node.primitives.svgPre = `<svg viewBox="${minX - padding} ${
-			minY - padding
-		} ${width + 2 * padding} ${height + 2 * padding}">`;
+		const viewBox = `viewBox="${minX - padding} ${minY - padding} ${
+			width + 2 * padding
+		} ${height + 2 * padding}"`;
+		node.primitives.svgPre = `<svg xmlns="http://www.w3.org/2000/svg" ${viewBox}>`;
 		node.primitives.svgPost = "</svg>";
 		delete node.primitives.minX;
 		delete node.primitives.maxX;

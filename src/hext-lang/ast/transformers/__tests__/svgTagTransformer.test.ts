@@ -39,7 +39,7 @@ test("Write .svgPre and .svgPost attributes on primitives that should render out
 	expect(ast).toEqual(
 		new Hextmap({
 			primitives: {
-				svgPre: '<svg viewBox="990 1289.0381056766578 1020 886.0254037844388">',
+				svgPre: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="990 1289.0381056766578 1020 886.0254037844388">',
 				svgPost: "</svg>",
 			},
 			children: {

@@ -10,6 +10,7 @@ import {
 	TerrainTransformer,
 	SVGTagTransformer,
 } from "./ast/transformers";
+import { SVGGenerator } from "./ast/generators";
 
 export class HextSVGTranspiler {
 	constructor(private input: string) {}
@@ -33,11 +34,8 @@ export class HextSVGTranspiler {
 		CoordBoundsTransformer.process(ast);
 		SVGTagTransformer.process(ast);
 
-		console.log(JSON.stringify(ast, null, 2));
-		return JSON.stringify(ast);
-
-		// Generating SVG output
-		// const svgGenerator = new SVGGenerator(metadataTransformer.metadata);
-		// return svgGenerator.process(ast);
+		const output = SVGGenerator.generate(ast);
+		console.log(output);
+		return output;
 	}
 }
