@@ -1,4 +1,4 @@
-hextmap             ::= { statement } ;
+hexmap              ::= { statement } ;
 statement           ::= metadata | hex_definition | path_definition | empty_line ;
 empty_line          ::= { whitespace } , newline ;
 metadata            ::= key_value , { whitespace }, ":", { whitespace }, key_value , newline ;

@@ -1,18 +1,18 @@
-import { HextLexer } from "../../../hextLexer";
-import { HextParser } from "../../../hextParser";
+import { Lexer } from "../../../lexer";
+import { Parser } from "../../../parser";
 import { PathfindingTransformer, HexGeometryTransformer } from "..";
-import { Hextmap, PathDefinition, HexGeometry } from "../../nodes";
+import { Hexmap, PathDefinition, HexGeometry } from "../../nodes";
 
 test("enhance PathDefinition nodes by pathfinding between waypoint coordinates", () => {
 	const map = `0000-0301-0500 road`;
-	const lexer = new HextLexer(map);
+	const lexer = new Lexer(map);
 	const tokens = lexer.tokenize();
-	const parser = new HextParser(tokens);
+	const parser = new Parser(tokens);
 	const ast = parser.parse();
 	HexGeometryTransformer.process(ast);
 	PathfindingTransformer.process(ast);
 	expect(ast).toEqual(
-		new Hextmap({
+		new Hexmap({
 			children: {
 				statements: [
 					new PathDefinition({

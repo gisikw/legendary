@@ -1,18 +1,18 @@
-import { HextLexer } from "../../../hextLexer";
-import { HextParser } from "../../../hextParser";
+import { Lexer } from "../../../lexer";
+import { Parser } from "../../../parser";
 import { TerrainTransformer } from "../terrainTransformer";
-import { Hextmap, HexDefinition } from "../../nodes";
+import { Hexmap, HexDefinition } from "../../nodes";
 
 test("replaces terrain strings with primitives for rendering", () => {
 	const map = "0202 water";
-	const lexer = new HextLexer(map);
+	const lexer = new Lexer(map);
 	const tokens = lexer.tokenize();
-	const parser = new HextParser(tokens);
+	const parser = new Parser(tokens);
 	const ast = parser.parse();
 	const transformer = new TerrainTransformer(ast);
 	transformer.process();
 	expect(ast).toEqual(
-		new Hextmap({
+		new Hexmap({
 			children: {
 				statements: [
 					new HexDefinition({

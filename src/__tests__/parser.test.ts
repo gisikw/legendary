@@ -1,6 +1,6 @@
-import { HextLexer } from "../hextLexer";
-import { HextParser } from "../hextParser";
-import { Hextmap, Metadata, HexDefinition, PathDefinition } from "../ast/nodes";
+import { Lexer } from "../lexer";
+import { Parser } from "../parser";
+import { Hexmap, Metadata, HexDefinition, PathDefinition } from "../ast/nodes";
 
 test("simple test", () => {
 	const map = `
@@ -9,12 +9,12 @@ test("simple test", () => {
 	0502 [[The cool link]] forest castle "My Evil Castle"
 	0306 island "My Island"
 	0202-0306 river`;
-	const lexer = new HextLexer(map);
+	const lexer = new Lexer(map);
 	const tokens = lexer.tokenize();
-	const parser = new HextParser(tokens);
+	const parser = new Parser(tokens);
 	const ast = parser.parse();
 	expect(ast).toEqual(
-		new Hextmap({
+		new Hexmap({
 			children: {
 				statements: [
 					new Metadata({
@@ -78,12 +78,12 @@ map title : The greatest map ever
 0001-0101-0102 road
 0102-0100 river "The River Label"
 `;
-	const lexer = new HextLexer(map);
+	const lexer = new Lexer(map);
 	const tokens = lexer.tokenize();
-	const parser = new HextParser(tokens);
+	const parser = new Parser(tokens);
 	const ast = parser.parse();
 	expect(ast).toEqual(
-		new Hextmap({
+		new Hexmap({
 			children: {
 				statements: [
 					new Metadata({

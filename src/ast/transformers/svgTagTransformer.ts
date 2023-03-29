@@ -2,7 +2,7 @@ import { Visitor } from "../visitor";
 import { ASTNode } from "../astNode";
 
 export class SVGTagTransformer extends Visitor {
-	override visitHextmap(node: ASTNode) {
+	override visitHexmap(node: ASTNode) {
 		const padding = this.options["padding"] || 10;
 		const { minX, maxX, minY, maxY } = node.primitives;
 		const width = maxX - minX;

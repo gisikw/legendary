@@ -15,7 +15,7 @@ export class CoordBoundsTransformer extends Visitor {
 		this.maxY = -Infinity;
 	}
 
-	override visitHextmap(node: ASTNode) {
+	override visitHexmap(node: ASTNode) {
 		this.visitChildren(node);
 		Object.assign(node.primitives, {
 			minX: this.minX,

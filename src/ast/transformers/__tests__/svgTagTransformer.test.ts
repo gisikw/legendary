@@ -1,5 +1,5 @@
-import { HextLexer } from "../../../hextLexer";
-import { HextParser } from "../../../hextParser";
+import { Lexer } from "../../../lexer";
+import { Parser } from "../../../parser";
 import {
 	CoordBoundsTransformer,
 	HexGeometryTransformer,
@@ -10,13 +10,13 @@ import {
 	SVGTagTransformer,
 	TerrainTransformer,
 } from "..";
-import { Hextmap, HexDefinition, HexCoord } from "../../nodes";
+import { Hexmap, HexDefinition, HexCoord } from "../../nodes";
 
 test("Write .svgPre and .svgPost attributes on primitives that should render out", () => {
 	const map = "0202 water";
-	const lexer = new HextLexer(map);
+	const lexer = new Lexer(map);
 	const tokens = lexer.tokenize();
-	const parser = new HextParser(tokens);
+	const parser = new Parser(tokens);
 	const ast = parser.parse();
 	const metadataTransformer = new MetadataTransformer(ast);
 	metadataTransformer.process();
@@ -29,7 +29,7 @@ test("Write .svgPre and .svgPost attributes on primitives that should render out
 	CoordBoundsTransformer.process(ast);
 	SVGTagTransformer.process(ast);
 	expect(ast).toEqual(
-		new Hextmap({
+		new Hexmap({
 			primitives: {
 				svgPre: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="990 1289.0381056766578 1020 886.0254037844388">',
 				svgPost: "</svg>",

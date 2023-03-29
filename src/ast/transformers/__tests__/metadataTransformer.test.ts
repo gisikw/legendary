@@ -1,7 +1,7 @@
-import { HextLexer } from "../../../hextLexer";
-import { HextParser } from "../../../hextParser";
+import { Lexer } from "../../../lexer";
+import { Parser } from "../../../parser";
 import { MetadataTransformer } from "../metadataTransformer";
-import { Hextmap, HexDefinition } from "../../nodes";
+import { Hexmap, HexDefinition } from "../../nodes";
 
 test("extract metadata nodes and aggregate key:value pairs", () => {
 	const map = `
@@ -9,9 +9,9 @@ test("extract metadata nodes and aggregate key:value pairs", () => {
 		orientation: flat-top
 		0202
 	`;
-	const lexer = new HextLexer(map);
+	const lexer = new Lexer(map);
 	const tokens = lexer.tokenize();
-	const parser = new HextParser(tokens);
+	const parser = new Parser(tokens);
 	const ast = parser.parse();
 	const transformer = new MetadataTransformer(ast);
 	transformer.process();
@@ -20,7 +20,7 @@ test("extract metadata nodes and aggregate key:value pairs", () => {
 		orientation: "flat-top",
 	});
 	expect(ast).toEqual(
-		new Hextmap({
+		new Hexmap({
 			children: {
 				statements: [
 					new HexDefinition({

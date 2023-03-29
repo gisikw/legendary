@@ -1,13 +1,13 @@
 import { TokenType, Token } from "./types";
 import {
-	Hextmap,
+	Hexmap,
 	Statement,
 	Metadata,
 	HexDefinition,
 	PathDefinition,
 } from "./ast/nodes";
 
-export class HextParser {
+export class Parser {
 	private tokens: Token[];
 	private position: number;
 
@@ -16,9 +16,9 @@ export class HextParser {
 		this.position = 0;
 	}
 
-	parse(): Hextmap {
+	parse(): Hexmap {
 		const statements: Statement[] = [];
-		const hextmap = new Hextmap({
+		const hexmap = new Hexmap({
 			children: { statements },
 		});
 
@@ -27,7 +27,7 @@ export class HextParser {
 			if (statement) statements.push(statement);
 		}
 
-		return hextmap;
+		return hexmap;
 	}
 
 	private parseStatement(): Statement | undefined {

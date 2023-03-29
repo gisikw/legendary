@@ -1,4 +1,4 @@
-import { HextSVGTranspiler } from "../hextSvgTranspiler";
+import { SVGTranspiler } from "../svgTranspiler";
 
 test("simple test", () => {
 	const map = `
@@ -20,7 +20,7 @@ test("simple test", () => {
 		0001-0101-0102 road
 		0102-0100 river "The River Label"
 	`;
-	const transpiler = new HextSVGTranspiler(map);
+	const transpiler = new SVGTranspiler(map);
 	const svg = transpiler.transpile();
 	expect(typeof svg).toBe("string");
 });

@@ -12,7 +12,7 @@ function isCoordinateSequence(input: string): boolean {
 	return /\d{4}-(?:\d{4}-)*\d{4}/.test(input);
 }
 
-export class HextLexer {
+export class Lexer {
 	constructor(private input: string) {}
 
 	public tokenize(): Token[] {

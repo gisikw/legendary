@@ -1,8 +1,8 @@
-import { HextLexer } from "../../../hextLexer";
-import { HextParser } from "../../../hextParser";
+import { Lexer } from "../../../lexer";
+import { Parser } from "../../../parser";
 import { HexGeometryTransformer, HexPixelTransformer } from "..";
 import {
-	Hextmap,
+	Hexmap,
 	HexDefinition,
 	PathDefinition,
 	HexGeometry,
@@ -23,14 +23,14 @@ test("decorate HexGeometry nodes with origin, vertices coordinates", () => {
 		0001 water
 		0001-0002 road
 	`;
-	const lexer = new HextLexer(map);
+	const lexer = new Lexer(map);
 	const tokens = lexer.tokenize();
-	const parser = new HextParser(tokens);
+	const parser = new Parser(tokens);
 	const ast = parser.parse();
 	HexGeometryTransformer.process(ast);
 	HexPixelTransformer.process(ast, { size: 500 });
 	expect(ast).toEqual(
-		new Hextmap({
+		new Hexmap({
 			children: {
 				statements: [
 					new HexDefinition({

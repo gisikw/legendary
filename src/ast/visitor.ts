@@ -40,7 +40,7 @@ export abstract class Visitor {
 		this.visitChildren(node);
 	}
 
-	visitHextmap(node: ASTNode): void {
+	visitHexmap(node: ASTNode): void {
 		this.visitChildren(node);
 	}
 

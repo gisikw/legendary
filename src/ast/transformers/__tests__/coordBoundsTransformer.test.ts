@@ -1,8 +1,8 @@
 import { CoordBoundsTransformer } from "../coordBoundsTransformer";
-import { Hextmap, HexGeometry } from "../../nodes";
+import { Hexmap, HexGeometry } from "../../nodes";
 
-test("finds the min and max coordinates within a Hextmap and adds them to the Hextmap node", () => {
-	const ast = new Hextmap({
+test("finds the min and max coordinates within a Hexmap and adds them to the Hexmap node", () => {
+	const ast = new Hexmap({
 		children: {
 			statements: [
 				new HexGeometry({

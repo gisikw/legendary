@@ -1,5 +1,5 @@
-import { HextLexer } from "./hextLexer";
-import { HextParser } from "./hextParser";
+import { Lexer } from "./lexer";
+import { Parser } from "./parser";
 import {
 	CoordBoundsTransformer,
 	HexGeometryTransformer,
@@ -12,14 +12,14 @@ import {
 } from "./ast/transformers";
 import { SVGGenerator } from "./ast/generators";
 
-export class HextSVGTranspiler {
+export class SVGTranspiler {
 	constructor(private input: string) {}
 
 	public transpile(): string {
 		// Lexing and Parsing
-		const lexer = new HextLexer(this.input);
+		const lexer = new Lexer(this.input);
 		const tokens = lexer.tokenize();
-		const parser = new HextParser(tokens);
+		const parser = new Parser(tokens);
 		const ast = parser.parse();
 
 		// Applying Transformers

@@ -1,8 +1,8 @@
-import { HextLexer } from "../../../hextLexer";
-import { HextParser } from "../../../hextParser";
+import { Lexer } from "../../../lexer";
+import { Parser } from "../../../parser";
 import { RenderableTransformer } from "../renderableTransformer";
 import {
-	Hextmap,
+	Hexmap,
 	HexDefinition,
 	PathDefinition,
 	HexLabel,
@@ -16,14 +16,14 @@ test("breaks apart nodes that contain multiple renderable component", () => {
 		0202 [[My Link]] water leviathan "The Monster"
 		0202-0303 river "The Fancy River"
 	`;
-	const lexer = new HextLexer(map);
+	const lexer = new Lexer(map);
 	const tokens = lexer.tokenize();
-	const parser = new HextParser(tokens);
+	const parser = new Parser(tokens);
 	const ast = parser.parse();
 	const transformer = new RenderableTransformer(ast);
 	transformer.process();
 	expect(ast).toEqual(
-		new Hextmap({
+		new Hexmap({
 			children: {
 				statements: [
 					new HexDefinition({
