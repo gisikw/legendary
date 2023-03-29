@@ -25,7 +25,7 @@ export class HextSVGTranspiler {
 		// Applying Transformers
 		const metadataTransformer = new MetadataTransformer(ast);
 		metadataTransformer.process();
-		const { metadata } = metadataTransformer;
+		// const { metadata } = metadataTransformer;
 		RenderableTransformer.process(ast);
 		TerrainTransformer.process(ast);
 		HexGeometryTransformer.process(ast);

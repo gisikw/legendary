@@ -1,13 +1,10 @@
-import { HextLexer } from "../../../HextLexer";
-import { HextParser } from "../../../HextParser";
-import { RenderableTransformer } from "../RenderableTransformer";
+import { HextLexer } from "../../../hextLexer";
+import { HextParser } from "../../../hextParser";
+import { RenderableTransformer } from "../renderableTransformer";
 import {
 	Hextmap,
-	Statement,
-	Metadata,
 	HexDefinition,
 	PathDefinition,
-	HexGeometry,
 	HexLabel,
 	HexCoord,
 	HexIcon,

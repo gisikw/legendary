@@ -1,5 +1,5 @@
-import { HextLexer } from "../../../HextLexer";
-import { HextParser } from "../../../HextParser";
+import { HextLexer } from "../../../hextLexer";
+import { HextParser } from "../../../hextParser";
 import {
 	CoordBoundsTransformer,
 	HexGeometryTransformer,
@@ -10,15 +10,7 @@ import {
 	SVGTagTransformer,
 	TerrainTransformer,
 } from "..";
-
-import {
-	Hextmap,
-	Statement,
-	Metadata,
-	HexDefinition,
-	PathDefinition,
-	HexCoord,
-} from "../../nodes";
+import { Hextmap, HexDefinition, HexCoord } from "../../nodes";
 
 test("Write .svgPre and .svgPost attributes on primitives that should render out", () => {
 	const map = "0202 water";
@@ -28,7 +20,7 @@ test("Write .svgPre and .svgPost attributes on primitives that should render out
 	const ast = parser.parse();
 	const metadataTransformer = new MetadataTransformer(ast);
 	metadataTransformer.process();
-	const { metadata } = metadataTransformer;
+	// const { metadata } = metadataTransformer;
 	RenderableTransformer.process(ast);
 	TerrainTransformer.process(ast);
 	HexGeometryTransformer.process(ast);

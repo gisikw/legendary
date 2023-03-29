@@ -112,6 +112,7 @@ export class HextParser {
 			this.consumeToken(TokenType.DOUBLE_CLOSE_BRACKET);
 			return result;
 		}
+		return undefined;
 	}
 
 	private parseTerrain(): string | undefined {
@@ -119,6 +120,7 @@ export class HextParser {
 		if (this.peek().type === TokenType.WORD) {
 			return this.consumeToken(TokenType.WORD).value;
 		}
+		return undefined;
 	}
 
 	private parseIcon(): string | undefined {
@@ -126,6 +128,7 @@ export class HextParser {
 		if (this.peek().type === TokenType.WORD) {
 			return this.consumeToken(TokenType.WORD).value;
 		}
+		return undefined;
 	}
 
 	private parseLabel(): string | undefined {
@@ -139,6 +142,7 @@ export class HextParser {
 			this.consumeToken(TokenType.QUOTE);
 			return result;
 		}
+		return undefined;
 	}
 
 	private parsePathDefinition(): PathDefinition {
@@ -165,9 +169,10 @@ export class HextParser {
 		if (this.peek().type === TokenType.COORDINATE) {
 			return this.consumeToken(TokenType.COORDINATE).value;
 		}
+		return undefined;
 	}
 
-	private parsePathType(): string {
+	private parsePathType(): string | undefined {
 		this.consumeWhitespace();
 		return this.consumeToken(TokenType.WORD).value;
 	}
@@ -183,14 +188,23 @@ export class HextParser {
 			this.consumeToken(TokenType.QUOTE);
 			return result;
 		}
+		return undefined;
 	}
 
 	private peek(): Token {
-		return this.tokens[this.position];
+		const token = this.tokens[this.position];
+		if (token === undefined) {
+			throw new Error("Unexpected end of token stream");
+		}
+		return token;
 	}
 
 	private lookahead(): Token {
-		return this.tokens[this.position + 1];
+		const token = this.tokens[this.position + 1];
+		if (token === undefined) {
+			throw new Error("Unexpected end of token stream");
+		}
+		return token;
 	}
 
 	private consumeWhitespace(): void {

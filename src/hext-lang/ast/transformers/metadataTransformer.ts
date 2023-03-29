@@ -9,9 +9,9 @@ export class MetadataTransformer extends Visitor {
 		this.metadata = {};
 	}
 
-	visitMetadata(node: ASTNode) {
+	override visitMetadata(node: ASTNode) {
 		Object.assign(this.metadata, {
-			[node.primitives.key]: node.primitives.value,
+			[node.primitives['key']]: node.primitives['value'],
 		});
 		this.removeNode(node);
 	}

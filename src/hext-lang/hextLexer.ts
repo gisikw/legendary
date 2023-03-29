@@ -32,14 +32,14 @@ export class HextLexer {
 			} else if (char === ":" && !isBracketed) {
 				tokens.push({ type: TokenType.COLON, value: char });
 				position++;
-			} else if (char === "[" && this.input[position + 1] === "[") {
+			} else if (char === "[" && this.input.charAt(position + 1) === "[") {
 				tokens.push({
 					type: TokenType.DOUBLE_OPEN_BRACKET,
 					value: "[[",
 				});
 				position += 2;
 				isBracketed = true;
-			} else if (char === "]" && this.input[position + 1] === "]") {
+			} else if (char === "]" && this.input.charAt(position + 1) === "]") {
 				tokens.push({
 					type: TokenType.DOUBLE_CLOSE_BRACKET,
 					value: "]]",
@@ -56,8 +56,8 @@ export class HextLexer {
 				if (!isBracketed) terminators.push(":");
 				while (
 					position < this.input.length &&
-					!terminators.includes(this.input[position]) &&
-					isNonWhitespaceCharacter(this.input[position])
+					!terminators.includes(this.input.charAt(position)) &&
+					isNonWhitespaceCharacter(this.input.charAt(position))
 				) {
 					tokenValue += this.input[position];
 					position++;

@@ -1,13 +1,7 @@
-import { HextLexer } from "../../../HextLexer";
-import { HextParser } from "../../../HextParser";
+import { HextLexer } from "../../../hextLexer";
+import { HextParser } from "../../../hextParser";
 import { TerrainTransformer } from "../terrainTransformer";
-import {
-	Hextmap,
-	Statement,
-	Metadata,
-	HexDefinition,
-	PathDefinition,
-} from "../../nodes";
+import { Hextmap, HexDefinition } from "../../nodes";
 
 test("replaces terrain strings with primitives for rendering", () => {
 	const map = "0202 water";

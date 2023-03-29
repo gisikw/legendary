@@ -1,10 +1,8 @@
-import { HextLexer } from "../../../HextLexer";
-import { HextParser } from "../../../HextParser";
+import { HextLexer } from "../../../hextLexer";
+import { HextParser } from "../../../hextParser";
 import { HexGeometryTransformer } from "../hexGeometryTransformer";
 import {
 	Hextmap,
-	Statement,
-	Metadata,
 	HexDefinition,
 	PathDefinition,
 	HexGeometry,

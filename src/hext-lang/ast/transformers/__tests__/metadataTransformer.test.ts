@@ -1,13 +1,7 @@
-import { HextLexer } from "../../../HextLexer";
-import { HextParser } from "../../../HextParser";
+import { HextLexer } from "../../../hextLexer";
+import { HextParser } from "../../../hextParser";
 import { MetadataTransformer } from "../metadataTransformer";
-import {
-	Hextmap,
-	Statement,
-	Metadata,
-	HexDefinition,
-	PathDefinition,
-} from "../../nodes";
+import { Hextmap, HexDefinition } from "../../nodes";
 
 test("extract metadata nodes and aggregate key:value pairs", () => {
 	const map = `

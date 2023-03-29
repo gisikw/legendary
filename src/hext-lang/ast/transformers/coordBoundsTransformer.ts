@@ -15,7 +15,7 @@ export class CoordBoundsTransformer extends Visitor {
 		this.maxY = -Infinity;
 	}
 
-	visitHextmap(node: ASTNode) {
+	override visitHextmap(node: ASTNode) {
 		this.visitChildren(node);
 		Object.assign(node.primitives, {
 			minX: this.minX,
@@ -25,12 +25,12 @@ export class CoordBoundsTransformer extends Visitor {
 		});
 	}
 
-	visitHexGeometry(node: ASTNode) {
-		node.primitives.vertices.forEach((vertex: Record<string, number>) => {
-			if (vertex.x > this.maxX) this.maxX = vertex.x;
-			if (vertex.x < this.minX) this.minX = vertex.x;
-			if (vertex.y > this.maxY) this.maxY = vertex.y;
-			if (vertex.y < this.minY) this.minY = vertex.y;
+	override visitHexGeometry(node: ASTNode) {
+		node.primitives['vertices'].forEach((vertex: Record<string, number>) => {
+			if (vertex['x'] && vertex['x'] > this.maxX) this.maxX = vertex['x'];
+			if (vertex['x'] && vertex['x'] < this.minX) this.minX = vertex['x'];
+			if (vertex['y'] && vertex['y'] > this.maxY) this.maxY = vertex['y'];
+			if (vertex['y'] && vertex['y'] < this.minY) this.minY = vertex['y'];
 		});
 	}
 }

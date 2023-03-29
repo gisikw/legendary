@@ -1,14 +1,7 @@
-import { HextLexer } from "../../../HextLexer";
-import { HextParser } from "../../../HextParser";
+import { HextLexer } from "../../../hextLexer";
+import { HextParser } from "../../../hextParser";
 import { PathfindingTransformer, HexGeometryTransformer } from "..";
-import {
-	Hextmap,
-	Statement,
-	Metadata,
-	HexDefinition,
-	PathDefinition,
-	HexGeometry,
-} from "../../nodes";
+import { Hextmap, PathDefinition, HexGeometry } from "../../nodes";
 
 test("enhance PathDefinition nodes by pathfinding between waypoint coordinates", () => {
 	const map = `0000-0301-0500 road`;

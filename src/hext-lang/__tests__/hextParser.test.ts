@@ -2,7 +2,6 @@ import { HextLexer } from "../hextLexer";
 import { HextParser } from "../hextParser";
 import {
 	Hextmap,
-	Statement,
 	Metadata,
 	HexDefinition,
 	PathDefinition,

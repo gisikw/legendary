@@ -16,10 +16,11 @@ interface HexGeometryNodeOptions {
 }
 
 export class HexGeometry extends ASTNode {
-	primitives: HexGeometryPrimitives;
+	override primitives: HexGeometryPrimitives;
 
 	constructor(options: HexGeometryNodeOptions) {
 		super(options);
+		this.primitives = options.primitives;
 	}
 
 	// Assuming odd-q layout

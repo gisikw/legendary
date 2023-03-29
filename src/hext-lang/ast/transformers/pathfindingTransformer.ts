@@ -2,7 +2,7 @@ import { Visitor } from "../visitor";
 import { ASTNode } from "../astNode";
 import { HexGeometry } from "../nodes";
 
-const AXIAL_DIRECTION_VECTORS = [
+const AXIAL_DIRECTION_VECTORS: Array<Array<number>> = [
 	[1, 0],
 	[1, -1],
 	[0, -1],
@@ -19,18 +19,19 @@ export class PathfindingTransformer extends Visitor {
 		this.orientation = orientation;
 	}
 
-	visitPathDefinition(node: ASTNode) {
-		const hexGeometries = node.children.hexGeometries as HexGeometry[];
+	override visitPathDefinition(node: ASTNode) {
+		const hexGeometries = node.children['hexGeometries'] as HexGeometry[];
 		const fullPath: HexGeometry[] = [];
 
 		for (let i = 0; i < hexGeometries.length - 1; i++) {
-			fullPath.push(
-				...this.findShortestPath(hexGeometries[i], hexGeometries[i + 1])
-			);
+			const hex = hexGeometries[i];
+			const next = hexGeometries[i+1];
+			if (hex && next) fullPath.push(...this.findShortestPath(hex, next));
 		}
-		fullPath.push(hexGeometries[hexGeometries.length - 1]);
+		const last = hexGeometries[hexGeometries.length - 1];
+		if (last) fullPath.push(last);
 
-		node.children.hexGeometries = fullPath;
+		node.children['hexGeometries'] = fullPath;
 	}
 
 	findShortestPath(start: HexGeometry, goal: HexGeometry): HexGeometry[] {
@@ -88,10 +89,10 @@ export class PathfindingTransformer extends Visitor {
 
 	getNeighbors(hex: HexGeometry): HexGeometry[] {
 		const result = [];
-		for (let i = 0; i < AXIAL_DIRECTION_VECTORS.length; i++) {
+		for (const directionVector of AXIAL_DIRECTION_VECTORS) {
 			const h = HexGeometry.fromAxial(
-				hex.primitives.q + AXIAL_DIRECTION_VECTORS[i][0],
-				hex.primitives.r + AXIAL_DIRECTION_VECTORS[i][1]
+				hex.primitives.q + (directionVector[0] || 0),
+				hex.primitives.r + (directionVector[1] || 0)
 			);
 			if (h.primitives.row > -1 && h.primitives.col > -1) result.push(h);
 		}
