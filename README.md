@@ -14,36 +14,60 @@ visualization of the map..
 
 Maps are defined using a domain-specific language called "Legendary Markup
 Language", so named because the text provided can be seen as being the legend
-of the map. Example input looks like:
-
-```lml
-orientation: flat-top
-map title : The greatest map ever
-
-0000 [[Link to a Water File]] water
-0001 forest "The Woods"
-0100 water
-
-0101 grass     castle-icon "The Keep"
-0102 [[The Fields]] grass "The Fields"
-
-0103 [[Pyramid's Panic]]  desert   pyramid
-0104 [[Endgame: The end is near]] desert temple "The - Evil: Temple"
-
-0203
-
-0001-0101-0102 road
-0102-0100 river "The River Label"
-```
-
-## SVG Rendering
-
-While all syntax can be parsed, not all of the description is rendered. Below
-you can find the latest visualization from the prior snippet:
+of the map. An example output and its source input can be viewed below:
 
 <p align="center">
 <img src="https://github.com/gisikw/legendary/blob/main/example.svg" alt="Example Map" />
 </p>
+
+```lml
+orientation: flat-top
+map title: The Legendarium
+
+0000 mountains
+0001 mountains
+0002 mountains
+0003 mountains
+0004 ocean
+
+0100 mountains
+0101 mountains
+0102 desert
+0103 water
+0104 ocean
+
+0200 mountains
+0201 plains
+0202 plains
+0203 desert
+0204 water
+
+0300 hills
+0301 plains castle "Keep Coding"
+0302 plains
+0303 desert
+0304 ocean
+
+0400 hills
+0401 plains
+0402 forest "The Arboreal Forest"
+0403 water
+0404 ocean
+
+0500 swamp
+0501 swamp
+0502 forest
+0503 desert
+0504 ocean
+
+0100-0302-0403 river
+0102-0201-0301-0500 road "The Legendary Trail"
+```
+
+## SVG Rendering
+
+While all syntax can be parsed, not all of the description is rendered. This
+project remains a work-in-progress.
 
 ## Special Thanks
 - [Red Blob Games on Hexagonal Grids](https://www.redblobgames.com/grids/hexagons/)
