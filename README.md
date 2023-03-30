@@ -1,5 +1,6 @@
 # Legendary
 
+[![build](https://img.shields.io/github/checks-status/gisikw/legendary/main)](https://github.com/gisikw/legendary/actions)
 [![codecov](https://codecov.io/gh/gisikw/legendary/branch/main/graph/badge.svg?token=GR5O02004D)](https://codecov.io/gh/gisikw/legendary)
 
 ---
