@@ -12,7 +12,7 @@
     ],
     "parserOptions": {
         "ecmaVersion": "latest",
-		"project": ["tsconfig.json"],
+		"project": ["tsconfig.json","tsconfig.eslint.json"],
         "sourceType": "module"
     },
     "rules": {
