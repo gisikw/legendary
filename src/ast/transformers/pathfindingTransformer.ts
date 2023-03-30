@@ -1,6 +1,6 @@
-import { Visitor } from "../visitor";
-import { ASTNode } from "../astNode";
-import { HexGeometry } from "../nodes";
+import { Visitor } from "../visitor.js";
+import { ASTNode } from "../astNode.js";
+import { HexGeometry } from "../nodes/index.js";
 
 const AXIAL_DIRECTION_VECTORS: Array<Array<number>> = [
 	[1, 0],

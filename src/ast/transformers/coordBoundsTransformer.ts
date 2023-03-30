@@ -1,5 +1,5 @@
-import { Visitor } from "../visitor";
-import { ASTNode } from "../astNode";
+import { Visitor } from "../visitor.js";
+import { ASTNode } from "../astNode.js";
 
 export class CoordBoundsTransformer extends Visitor {
 	private minX: number;

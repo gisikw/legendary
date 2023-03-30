@@ -1,7 +1,7 @@
-import { Lexer } from "../../../lexer";
-import { Parser } from "../../../parser";
-import { TerrainTransformer } from "../terrainTransformer";
-import { Hexmap, HexDefinition } from "../../nodes";
+import { Lexer } from "../../../lexer.js";
+import { Parser } from "../../../parser.js";
+import { TerrainTransformer } from "../terrainTransformer.js";
+import { Hexmap, HexDefinition } from "../../nodes/index.js";
 
 test("replaces terrain strings with primitives for rendering", () => {
 	const map = "0202 water";

@@ -1,4 +1,4 @@
-import { ASTNode } from "./astNode";
+import { ASTNode } from "./astNode.js";
 
 export abstract class Visitor {
 	protected ast: ASTNode;

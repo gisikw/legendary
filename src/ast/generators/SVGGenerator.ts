@@ -1,5 +1,5 @@
-import { Generator } from "../generator";
-import { ASTNode } from "../astNode";
+import { Generator } from "../generator.js";
+import { ASTNode } from "../astNode.js";
 
 export class SVGGenerator extends Generator {
 	override visit(node: ASTNode) {

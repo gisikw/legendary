@@ -1,4 +1,4 @@
-import { HexGeometry } from "../hexGeometry";
+import { HexGeometry } from "../hexGeometry.js";
 
 test("generate HexGeometry from coordinate", () => {
 	const h = HexGeometry.fromCoord("0201");

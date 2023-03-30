@@ -1,5 +1,5 @@
-import { Lexer } from "../lexer";
-import { TokenType } from "../types";
+import { Lexer } from "../lexer.js";
+import { TokenType } from "../types.js";
 
 test("tokenize sample inputs", () => {
 	expect(new Lexer('0102-0100 river "The River Label"').tokenize()).toEqual([

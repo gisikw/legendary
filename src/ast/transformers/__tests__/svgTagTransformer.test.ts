@@ -1,5 +1,5 @@
-import { Lexer } from "../../../lexer";
-import { Parser } from "../../../parser";
+import { Lexer } from "../../../lexer.js";
+import { Parser } from "../../../parser.js";
 import {
 	CoordBoundsTransformer,
 	HexGeometryTransformer,
@@ -9,8 +9,8 @@ import {
 	RenderableTransformer,
 	SVGTagTransformer,
 	TerrainTransformer,
-} from "..";
-import { Hexmap, HexDefinition, HexCoord } from "../../nodes";
+} from "../index.js";
+import { Hexmap, HexDefinition, HexCoord } from "../../nodes/index.js";
 
 test("Write .svgPre and .svgPost attributes on primitives that should render out", () => {
 	const map = "0202 water";

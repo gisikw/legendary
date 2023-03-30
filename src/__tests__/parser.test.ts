@@ -1,6 +1,11 @@
-import { Lexer } from "../lexer";
-import { Parser } from "../parser";
-import { Hexmap, Metadata, HexDefinition, PathDefinition } from "../ast/nodes";
+import { Lexer } from "../lexer.js";
+import { Parser } from "../parser.js";
+import {
+	Hexmap,
+	Metadata,
+	HexDefinition,
+	PathDefinition,
+} from "../ast/nodes/index.js";
 
 test("simple test", () => {
 	const map = `

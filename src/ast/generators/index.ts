@@ -1,1 +1,1 @@
-export * from "./SVGGenerator";
+export * from "./SVGGenerator.js";

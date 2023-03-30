@@ -1,7 +1,7 @@
-import { Lexer } from "../../../lexer";
-import { Parser } from "../../../parser";
-import { MetadataTransformer } from "../metadataTransformer";
-import { Hexmap, HexDefinition } from "../../nodes";
+import { Lexer } from "../../../lexer.js";
+import { Parser } from "../../../parser.js";
+import { MetadataTransformer } from "../metadataTransformer.js";
+import { Hexmap, HexDefinition } from "../../nodes/index.js";
 
 test("extract metadata nodes and aggregate key:value pairs", () => {
 	const map = `

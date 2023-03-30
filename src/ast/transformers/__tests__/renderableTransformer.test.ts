@@ -1,6 +1,6 @@
-import { Lexer } from "../../../lexer";
-import { Parser } from "../../../parser";
-import { RenderableTransformer } from "../renderableTransformer";
+import { Lexer } from "../../../lexer.js";
+import { Parser } from "../../../parser.js";
+import { RenderableTransformer } from "../renderableTransformer.js";
 import {
 	Hexmap,
 	HexDefinition,
@@ -9,7 +9,7 @@ import {
 	HexCoord,
 	HexIcon,
 	PathLabel,
-} from "../../nodes";
+} from "../../nodes/index.js";
 
 test("breaks apart nodes that contain multiple renderable component", () => {
 	const map = `

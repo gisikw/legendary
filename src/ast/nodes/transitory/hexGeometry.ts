@@ -1,5 +1,5 @@
-import { ASTNode } from "../../astNode";
-import type { Visitor } from "../../visitor";
+import { ASTNode } from "../../astNode.js";
+import type { Visitor } from "../../visitor.js";
 
 interface HexGeometryPrimitives {
 	coord: string;

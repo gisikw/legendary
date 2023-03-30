@@ -1,5 +1,5 @@
-import { Lexer } from "./lexer";
-import { Parser } from "./parser";
+import { Lexer } from "./lexer.js";
+import { Parser } from "./parser.js";
 import {
 	CoordBoundsTransformer,
 	HexGeometryTransformer,
@@ -9,8 +9,8 @@ import {
 	RenderableTransformer,
 	TerrainTransformer,
 	SVGTagTransformer,
-} from "./ast/transformers";
-import { SVGGenerator } from "./ast/generators";
+} from "./ast/transformers/index.js";
+import { SVGGenerator } from "./ast/generators/index.js";
 
 export class SVGTranspiler {
 	constructor(private input: string) {}
@@ -34,8 +34,6 @@ export class SVGTranspiler {
 		CoordBoundsTransformer.process(ast);
 		SVGTagTransformer.process(ast);
 
-		const output = SVGGenerator.generate(ast);
-		console.log(output);
-		return output;
+		return SVGGenerator.generate(ast);
 	}
 }

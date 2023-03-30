@@ -1,6 +1,6 @@
-import { Visitor } from "../visitor";
-import { ASTNode } from "../astNode";
-import { HexCoord, HexIcon, HexLabel, PathLabel } from "../nodes";
+import { Visitor } from "../visitor.js";
+import { ASTNode } from "../astNode.js";
+import { HexCoord, HexIcon, HexLabel, PathLabel } from "../nodes/index.js";
 
 export class RenderableTransformer extends Visitor {
 	override visitHexDefinition(node: ASTNode) {

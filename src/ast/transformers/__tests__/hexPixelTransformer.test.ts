@@ -1,12 +1,12 @@
-import { Lexer } from "../../../lexer";
-import { Parser } from "../../../parser";
-import { HexGeometryTransformer, HexPixelTransformer } from "..";
+import { Lexer } from "../../../lexer.js";
+import { Parser } from "../../../parser.js";
+import { HexGeometryTransformer, HexPixelTransformer } from "../index.js";
 import {
 	Hexmap,
 	HexDefinition,
 	PathDefinition,
 	HexGeometry,
-} from "../../nodes";
+} from "../../nodes/index.js";
 
 const tap = (x: any, f: (x: any) => void) => {
 	f(x);

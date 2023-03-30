@@ -1,4 +1,4 @@
-import { SVGTranspiler } from "../svgTranspiler";
+import { SVGTranspiler } from "../svgTranspiler.js";
 
 test("simple test", () => {
 	const map = `

@@ -1,4 +1,4 @@
-import { SVGTranspiler } from "./svgTranspiler";
+import { SVGTranspiler } from "./svgTranspiler.js";
 
 export const Legendary = {
 	convertToSvg: function (input: string): string {

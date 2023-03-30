@@ -1,1 +1,1 @@
-export * from "./hexGeometry";
+export * from "./hexGeometry.js";

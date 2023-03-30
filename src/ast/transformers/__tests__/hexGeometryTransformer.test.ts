@@ -1,12 +1,12 @@
-import { Lexer } from "../../../lexer";
-import { Parser } from "../../../parser";
-import { HexGeometryTransformer } from "../hexGeometryTransformer";
+import { Lexer } from "../../../lexer.js";
+import { Parser } from "../../../parser.js";
+import { HexGeometryTransformer } from "../hexGeometryTransformer.js";
 import {
 	Hexmap,
 	HexDefinition,
 	PathDefinition,
 	HexGeometry,
-} from "../../nodes";
+} from "../../nodes/index.js";
 
 test("add HexGeometry nodes to HexDefinitions and PathDefinitions", () => {
 	const map = `

@@ -5,7 +5,9 @@
 	"main": "dist/main.js",
 	"types": "dist/index.d.ts",
 	"type": "module",
-	"bin": "dist/cli.js",
+	"bin": {
+		"legendary": "dist/cli.js"
+	},
 	"files": [
 		"dist",
 		"LICENSE",

@@ -1,7 +1,7 @@
-import { Lexer } from "../../../lexer";
-import { Parser } from "../../../parser";
-import { PathfindingTransformer, HexGeometryTransformer } from "..";
-import { Hexmap, PathDefinition, HexGeometry } from "../../nodes";
+import { Lexer } from "../../../lexer.js";
+import { Parser } from "../../../parser.js";
+import { PathfindingTransformer, HexGeometryTransformer } from "../index.js";
+import { Hexmap, PathDefinition, HexGeometry } from "../../nodes/index.js";
 
 test("enhance PathDefinition nodes by pathfinding between waypoint coordinates", () => {
 	const map = `0000-0301-0500 road`;

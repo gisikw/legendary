@@ -1,5 +1,5 @@
-import { ASTNode } from "./astNode";
-import { Visitor } from "./visitor";
+import { ASTNode } from "./astNode.js";
+import { Visitor } from "./visitor.js";
 
 export abstract class Generator extends Visitor {
 	private output: string;

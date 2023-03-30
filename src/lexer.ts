@@ -1,4 +1,4 @@
-import { TokenType, Token } from "./types";
+import { TokenType, Token } from "./types.js";
 
 function isNonWhitespaceCharacter(char: string): boolean {
 	return /\S/.test(char);

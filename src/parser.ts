@@ -1,11 +1,11 @@
-import { TokenType, Token } from "./types";
+import { TokenType, Token } from "./types.js";
 import {
 	Hexmap,
 	Statement,
 	Metadata,
 	HexDefinition,
 	PathDefinition,
-} from "./ast/nodes";
+} from "./ast/nodes/index.js";
 
 export class Parser {
 	private tokens: Token[];
