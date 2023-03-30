@@ -1,22 +1,22 @@
-import { ASTNode } from "./astNode.js";
+import type { ASTNode } from "./astNode.js";
 
 export abstract class Visitor {
 	protected ast: ASTNode;
 	protected options: Record<string, any>;
-	private parentNodeStack: ASTNode[] = [];
+	private readonly parentNodeStack: ASTNode[] = [];
 
-	static process(ast: ASTNode, options?: Record<string, any>) {
+	static process(ast: ASTNode, options?: Record<string, any>): void {
 		class Klass extends this {}
-		const instance = new Klass(ast, options || {});
+		const instance = new Klass(ast, options ?? {});
 		instance.process();
 	}
 
 	constructor(ast: ASTNode, options?: Record<string, any>) {
 		this.ast = ast;
-		this.options = options || {};
+		this.options = options ?? {};
 	}
 
-	process() {
+	process(): void {
 		this.visit(this.ast);
 	}
 
@@ -80,7 +80,7 @@ export abstract class Visitor {
 
 	protected removeNode(node: ASTNode): void {
 		const parent = this.getCurrentParent();
-		if (!parent) return;
+		if (parent == null) return;
 		for (const key in parent.children) {
 			const childNodes = parent.children[key];
 			if (Array.isArray(childNodes)) {

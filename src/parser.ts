@@ -1,14 +1,15 @@
-import { TokenType, Token } from "./types.js";
+import { TokenType } from "./types.js";
+import type { Token } from "./types.js";
 import {
 	Hexmap,
-	Statement,
 	Metadata,
 	HexDefinition,
 	PathDefinition,
 } from "./ast/nodes/index.js";
+import type { Statement } from "./ast/nodes/index.js";
 
 export class Parser {
-	private tokens: Token[];
+	private readonly tokens: Token[];
 	private position: number;
 
 	constructor(tokens: Token[]) {
@@ -24,7 +25,7 @@ export class Parser {
 
 		while (this.position < this.tokens.length) {
 			const statement = this.parseStatement();
-			if (statement) statements.push(statement);
+			if (statement != null) statements.push(statement);
 		}
 
 		return hexmap;
@@ -149,9 +150,9 @@ export class Parser {
 		const coordinates = [];
 		let coordinate = this.parsePathCoordinate();
 		do {
-			if (coordinate) coordinates.push(coordinate);
+			if (coordinate != null) coordinates.push(coordinate);
 			coordinate = this.parsePathCoordinate();
-		} while (coordinate);
+		} while (coordinate != null);
 		const pathType = this.parsePathType();
 		const label = this.parsePathLabel();
 

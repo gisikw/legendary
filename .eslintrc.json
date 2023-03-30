@@ -16,5 +16,7 @@
         "sourceType": "module"
     },
     "rules": {
+		// Incompatible with tsconfig noPropertyAccessFromIndexSignature
+		"@typescript-eslint/no-dynamic-delete": 0
     }
 }

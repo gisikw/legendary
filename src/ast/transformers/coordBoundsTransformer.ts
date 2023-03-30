@@ -1,5 +1,5 @@
 import { Visitor } from "../visitor.js";
-import { ASTNode } from "../astNode.js";
+import type { ASTNode } from "../astNode.js";
 
 export class CoordBoundsTransformer extends Visitor {
 	private minX: number;
@@ -15,7 +15,7 @@ export class CoordBoundsTransformer extends Visitor {
 		this.maxY = -Infinity;
 	}
 
-	override visitHexmap(node: ASTNode) {
+	override visitHexmap(node: ASTNode): void {
 		this.visitChildren(node);
 		Object.assign(node.primitives, {
 			minX: this.minX,
@@ -25,16 +25,16 @@ export class CoordBoundsTransformer extends Visitor {
 		});
 	}
 
-	override visitHexGeometry(node: ASTNode) {
+	override visitHexGeometry(node: ASTNode): void {
 		node.primitives["vertices"].forEach(
 			(vertex: Record<string, number>) => {
-				if (vertex["x"] && vertex["x"] > this.maxX)
+				if (vertex["x"] != null && vertex["x"] > this.maxX)
 					this.maxX = vertex["x"];
-				if (vertex["x"] && vertex["x"] < this.minX)
+				if (vertex["x"] != null && vertex["x"] < this.minX)
 					this.minX = vertex["x"];
-				if (vertex["y"] && vertex["y"] > this.maxY)
+				if (vertex["y"] != null && vertex["y"] > this.maxY)
 					this.maxY = vertex["y"];
-				if (vertex["y"] && vertex["y"] < this.minY)
+				if (vertex["y"] != null && vertex["y"] < this.minY)
 					this.minY = vertex["y"];
 			}
 		);

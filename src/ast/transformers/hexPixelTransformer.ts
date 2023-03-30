@@ -1,8 +1,8 @@
 import { Visitor } from "../visitor.js";
-import { ASTNode } from "../astNode.js";
+import type { ASTNode } from "../astNode.js";
 
 export class HexPixelTransformer extends Visitor {
-	override visitHexGeometry(node: ASTNode) {
+	override visitHexGeometry(node: ASTNode): void {
 		const { size } = this.options;
 		const { q, r } = node.primitives;
 		const x = size * ((3 / 2) * q);

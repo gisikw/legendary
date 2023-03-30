@@ -1,4 +1,5 @@
-import { TokenType, Token } from "./types.js";
+import { TokenType } from "./types.js";
+import type { Token } from "./types.js";
 
 function isNonWhitespaceCharacter(char: string): boolean {
 	return /\S/.test(char);
@@ -13,7 +14,7 @@ function isCoordinateSequence(input: string): boolean {
 }
 
 export class Lexer {
-	constructor(private input: string) {}
+	constructor(private readonly input: string) {}
 
 	public tokenize(): Token[] {
 		const tokens: Token[] = [];
@@ -65,7 +66,7 @@ export class Lexer {
 					!terminators.includes(this.input.charAt(position)) &&
 					isNonWhitespaceCharacter(this.input.charAt(position))
 				) {
-					tokenValue += this.input[position];
+					tokenValue = `${tokenValue}${this.input[position] ?? ""}`;
 					position++;
 				}
 

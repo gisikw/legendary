@@ -1,8 +1,8 @@
 import { Visitor } from "../visitor.js";
-import { ASTNode } from "../astNode.js";
+import type { ASTNode } from "../astNode.js";
 import { HexGeometry } from "../nodes/index.js";
 
-const AXIAL_DIRECTION_VECTORS: Array<Array<number>> = [
+const AXIAL_DIRECTION_VECTORS: number[][] = [
 	[1, 0],
 	[1, -1],
 	[0, -1],
@@ -19,17 +19,18 @@ export class PathfindingTransformer extends Visitor {
 		this.orientation = orientation;
 	}
 
-	override visitPathDefinition(node: ASTNode) {
+	override visitPathDefinition(node: ASTNode): void {
 		const hexGeometries = node.children["hexGeometries"] as HexGeometry[];
 		const fullPath: HexGeometry[] = [];
 
 		for (let i = 0; i < hexGeometries.length - 1; i++) {
 			const hex = hexGeometries[i];
 			const next = hexGeometries[i + 1];
-			if (hex && next) fullPath.push(...this.findShortestPath(hex, next));
+			if (hex != null && next != null)
+				fullPath.push(...this.findShortestPath(hex, next));
 		}
 		const last = hexGeometries[hexGeometries.length - 1];
-		if (last) fullPath.push(last);
+		if (last != null) fullPath.push(last);
 
 		node.children["hexGeometries"] = fullPath;
 	}
@@ -45,8 +46,8 @@ export class PathfindingTransformer extends Visitor {
 
 		while (openSet.length > 0) {
 			let current = openSet.reduce((lowestF, hex) =>
-				fScore.get(hex.primitives.coord)! <
-				fScore.get(lowestF.primitives.coord)!
+				(fScore.get(hex.primitives.coord) ?? 0) <
+				(fScore.get(lowestF.primitives.coord) ?? 0)
 					? hex
 					: lowestF
 			);
@@ -55,8 +56,11 @@ export class PathfindingTransformer extends Visitor {
 				const path: HexGeometry[] = [];
 				let currentKey = current.primitives.coord;
 				while (cameFrom.has(currentKey)) {
-					path.unshift(cameFrom.get(currentKey)!);
-					current = cameFrom.get(currentKey)!;
+					const currentHex = cameFrom.get(currentKey);
+					if (currentHex != null) {
+						path.unshift(currentHex);
+						current = currentHex;
+					}
 					currentKey = current.primitives.coord;
 				}
 				return path;
@@ -67,13 +71,13 @@ export class PathfindingTransformer extends Visitor {
 			this.getNeighbors(current).forEach((neighbor) => {
 				const neighborKey = neighbor.primitives.coord;
 				const currentKey = current.primitives.coord;
-				const tentative_gScore = gScore.get(currentKey)! + 1;
-				if (tentative_gScore < (gScore.get(neighborKey) ?? Infinity)) {
+				const tentativegScore = (gScore.get(currentKey) ?? 0) + 1;
+				if (tentativegScore < (gScore.get(neighborKey) ?? Infinity)) {
 					cameFrom.set(neighborKey, current);
-					gScore.set(neighborKey, tentative_gScore);
+					gScore.set(neighborKey, tentativegScore);
 					fScore.set(
 						neighborKey,
-						tentative_gScore + this.distance(neighbor, goal)
+						tentativegScore + this.distance(neighbor, goal)
 					);
 
 					if (!openSet.some((hex) => this.equals(hex, neighbor))) {
@@ -91,8 +95,8 @@ export class PathfindingTransformer extends Visitor {
 		const result = [];
 		for (const directionVector of AXIAL_DIRECTION_VECTORS) {
 			const h = HexGeometry.fromAxial(
-				hex.primitives.q + (directionVector[0] || 0),
-				hex.primitives.r + (directionVector[1] || 0)
+				hex.primitives.q + (directionVector[0] ?? 0),
+				hex.primitives.r + (directionVector[1] ?? 0)
 			);
 			if (h.primitives.row > -1 && h.primitives.col > -1) result.push(h);
 		}

@@ -1,5 +1,5 @@
 import { Visitor } from "../visitor.js";
-import { ASTNode } from "../astNode.js";
+import type { ASTNode } from "../astNode.js";
 
 export class MetadataTransformer extends Visitor {
 	public metadata: Record<string, string>;
@@ -9,7 +9,7 @@ export class MetadataTransformer extends Visitor {
 		this.metadata = {};
 	}
 
-	override visitMetadata(node: ASTNode) {
+	override visitMetadata(node: ASTNode): void {
 		Object.assign(this.metadata, {
 			[node.primitives["key"]]: node.primitives["value"],
 		});

@@ -11,8 +11,8 @@ export abstract class ASTNode {
 	primitives: Record<string, any>;
 
 	constructor(options: ASTNodeOptions = {}) {
-		this.children = options.children || {};
-		this.primitives = options.primitives || {};
+		this.children = options.children ?? {};
+		this.primitives = options.primitives ?? {};
 	}
 
 	abstract accept(visitor: Visitor): void;

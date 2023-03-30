@@ -1,5 +1,5 @@
 import { Visitor } from "../visitor.js";
-import { ASTNode } from "../astNode.js";
+import type { ASTNode } from "../astNode.js";
 
 const TERRAIN_DICTIONARY: Record<string, Record<string, string>> = {
 	water: {
@@ -12,10 +12,10 @@ const DEFAULT_ATTRIBUTES = {
 };
 
 export class TerrainTransformer extends Visitor {
-	override visitHexDefinition(node: ASTNode) {
+	override visitHexDefinition(node: ASTNode): void {
 		Object.assign(
 			node.primitives,
-			TERRAIN_DICTIONARY[node.primitives["terrain"]] || DEFAULT_ATTRIBUTES
+			TERRAIN_DICTIONARY[node.primitives["terrain"]] ?? DEFAULT_ATTRIBUTES
 		);
 		delete node.primitives["terrain"];
 	}

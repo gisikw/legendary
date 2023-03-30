@@ -8,11 +8,11 @@ import {
 	HexGeometry,
 } from "../../nodes/index.js";
 
-const tap = (x: any, f: (x: any) => void) => {
+const tap = (x: any, f: (x: any) => void): any => {
 	f(x);
 	return x;
 };
-const approx = (value: number, epsilon = 0.1) => ({
+const approx = (value: number, epsilon = 0.1): any => ({
 	$$typeof: Symbol.for("jest.asymmetricMatcher"),
 	asymmetricMatch: (other: any) => Math.abs(value - other) < epsilon,
 	toAsymmetricMatcher: () => `~${value}`,

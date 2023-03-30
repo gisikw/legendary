@@ -13,7 +13,7 @@ import {
 import { SVGGenerator } from "./ast/generators/index.js";
 
 export class SVGTranspiler {
-	constructor(private input: string) {}
+	constructor(private readonly input: string) {}
 
 	public transpile(): string {
 		// Lexing and Parsing
