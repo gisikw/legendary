@@ -5,9 +5,11 @@ import type { HexGeometry } from "../nodes/index.js";
 
 export class RenderableTransformer extends Visitor {
 	override visitHexDefinition(node: ASTNode): void {
+		const { size } = this.options;
 		const hexGeometry = node.children["hexGeometry"] as HexGeometry;
 		if (hexGeometry == null) return;
-		const { q, r, coord } = hexGeometry.primitives;
+		const { coord, origin } = hexGeometry.primitives;
+		const { x, y } = origin;
 		if (node.children["renderables"] == null)
 			node.children["renderables"] = [];
 		const renderables = node.children["renderables"] as ASTNode[];
@@ -15,8 +17,9 @@ export class RenderableTransformer extends Visitor {
 			new HexCoord({
 				primitives: {
 					text: coord,
-					q,
-					r,
+					size,
+					x,
+					y,
 				},
 			})
 		);
@@ -25,8 +28,9 @@ export class RenderableTransformer extends Visitor {
 				new HexIcon({
 					primitives: {
 						name: node.primitives["icon"],
-						q,
-						r,
+						size,
+						x,
+						y,
 					},
 				})
 			);
@@ -37,8 +41,9 @@ export class RenderableTransformer extends Visitor {
 				new HexLabel({
 					primitives: {
 						text: node.primitives["label"],
-						q,
-						r,
+						size,
+						x,
+						y,
 					},
 				})
 			);

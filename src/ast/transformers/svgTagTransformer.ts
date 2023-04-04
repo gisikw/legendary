@@ -36,5 +36,17 @@ export class SVGTagTransformer extends Visitor {
 
 		delete node.primitives["bgColor"];
 		delete node.children["hexGeometry"];
+		this.visitChildren(node);
+	}
+
+	override visitHexCoord(node: ASTNode): void {
+		const x: number = node.primitives["x"];
+		let y: number = node.primitives["y"];
+		const size: number = node.primitives["size"];
+		const text: string = node.primitives["text"];
+		y = y - (4 / 6) * size;
+		const fontSize: number = size / 6;
+		const svgText = `<text alignment-baseline="middle" fill="black" font-size="${fontSize}" text-anchor="middle" x="${x}" y="${y}">${text}</text>`;
+		node.primitives["svgPre"] = svgText;
 	}
 }

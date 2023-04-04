@@ -27,10 +27,10 @@ export class SVGTranspiler {
 		metadataTransformer.process();
 		// const { metadata } = metadataTransformer;
 		HexGeometryTransformer.process(ast);
-		RenderableTransformer.process(ast);
-		TerrainTransformer.process(ast);
 		PathfindingTransformer.process(ast);
 		HexPixelTransformer.process(ast, { size: 500 });
+		RenderableTransformer.process(ast, { size: 500 });
+		TerrainTransformer.process(ast);
 		CoordBoundsTransformer.process(ast);
 		SVGTagTransformer.process(ast);
 

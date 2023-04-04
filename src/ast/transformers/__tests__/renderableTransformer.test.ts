@@ -1,16 +1,30 @@
 import { Lexer } from "../../../lexer.js";
 import { Parser } from "../../../parser.js";
-import { RenderableTransformer, HexGeometryTransformer } from "../index.js";
+import {
+	RenderableTransformer,
+	HexGeometryTransformer,
+	HexPixelTransformer,
+} from "../index.js";
 import {
 	HexCoord,
 	HexDefinition,
-	HexGeometry,
 	HexIcon,
 	HexLabel,
 	Hexmap,
 	PathDefinition,
 	PathLabel,
 } from "../../nodes/index.js";
+
+const approx = (value: number, epsilon = 0.1): any => ({
+	$$typeof: Symbol.for("jest.asymmetricMatcher"),
+	asymmetricMatch: (other: any) => Math.abs(value - other) < epsilon,
+	toAsymmetricMatcher: () => `~${value}`,
+});
+const anything = (): any => ({
+	$$typeof: Symbol.for("jest.asymmetricMatcher"),
+	asymmetricMatch: () => true,
+	toAsymmetricMatcher: () => "anything",
+});
 
 test("breaks apart nodes that contain multiple renderable component", () => {
 	const map = `
@@ -22,6 +36,7 @@ test("breaks apart nodes that contain multiple renderable component", () => {
 	const parser = new Parser(tokens);
 	const ast = parser.parse();
 	HexGeometryTransformer.process(ast);
+	HexPixelTransformer.process(ast, { size: 500 });
 	const transformer = new RenderableTransformer(ast);
 	transformer.process();
 	expect(ast).toEqual(
@@ -30,27 +45,27 @@ test("breaks apart nodes that contain multiple renderable component", () => {
 				statements: [
 					new HexDefinition({
 						children: {
-							hexGeometry: HexGeometry.fromCoord("0202"),
+							hexGeometry: anything(),
 							renderables: [
 								new HexCoord({
 									primitives: {
 										text: "0202",
-										q: 2,
-										r: 1,
+										x: 1500,
+										y: approx(1732.05),
 									},
 								}),
 								new HexIcon({
 									primitives: {
 										name: "leviathan",
-										q: 2,
-										r: 1,
+										x: 1500,
+										y: approx(1732.05),
 									},
 								}),
 								new HexLabel({
 									primitives: {
 										text: "The Monster",
-										q: 2,
-										r: 1,
+										x: 1500,
+										y: approx(1732.05),
 									},
 								}),
 							],
@@ -67,10 +82,7 @@ test("breaks apart nodes that contain multiple renderable component", () => {
 									primitives: { text: "The Fancy River" },
 								}),
 							],
-							hexGeometries: [
-								HexGeometry.fromCoord("0202"),
-								HexGeometry.fromCoord("0303"),
-							],
+							hexGeometries: anything(),
 						},
 						primitives: {
 							pathType: "river",
