@@ -18,7 +18,7 @@ test("replaces terrain strings with primitives for rendering", () => {
 					new HexDefinition({
 						primitives: {
 							coordinates: "0202",
-							bgColor: "#0000ff",
+							bgColor: "#91bb99",
 						},
 					}),
 				],

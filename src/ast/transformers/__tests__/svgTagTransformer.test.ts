@@ -10,7 +10,7 @@ import {
 	SVGTagTransformer,
 	TerrainTransformer,
 } from "../index.js";
-import { Hexmap, HexDefinition, HexCoord } from "../../nodes/index.js";
+import { Hexmap, HexDefinition } from "../../nodes/index.js";
 
 test("Write .svgPre and .svgPost attributes on primitives that should render out", () => {
 	const map = "0202 water";
@@ -37,13 +37,8 @@ test("Write .svgPre and .svgPost attributes on primitives that should render out
 			children: {
 				statements: [
 					new HexDefinition({
-						children: {
-							renderables: [
-								new HexCoord({ primitives: { text: "0202" } }),
-							],
-						},
 						primitives: {
-							svgPre: `<polygon fill="#0000ff" points="2000,1732.0508075688772 1750,2165.0635094610966 1250,2165.0635094610966 1000,1732.0508075688772 1249.9999999999998,1299.038105676658 1750,1299.0381056766578" stroke="black" stroke-width="2" />`,
+							svgPre: `<polygon fill="#91bb99" points="2000,1732.0508075688772 1750,2165.0635094610966 1250,2165.0635094610966 1000,1732.0508075688772 1249.9999999999998,1299.038105676658 1750,1299.0381056766578" stroke="black" stroke-width="2" />`,
 						},
 					}),
 				],
