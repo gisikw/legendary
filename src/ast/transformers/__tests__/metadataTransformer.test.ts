@@ -15,9 +15,10 @@ test("extract metadata nodes and aggregate key:value pairs", () => {
 	const ast = parser.parse();
 	const transformer = new MetadataTransformer(ast);
 	transformer.process();
-	expect(transformer.metadata).toEqual({
+	expect(transformer.config).toEqual({
 		"map title": "Awesome Map",
 		orientation: "flat-top",
+		size: 500,
 	});
 	expect(ast).toEqual(
 		new Hexmap({

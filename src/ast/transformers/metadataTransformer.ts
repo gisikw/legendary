@@ -1,16 +1,20 @@
 import { Visitor } from "../visitor.js";
 import type { ASTNode } from "../astNode.js";
 
+const DEFAULT_CONFIG = {
+	size: 500,
+};
+
 export class MetadataTransformer extends Visitor {
-	public metadata: Record<string, string>;
+	public config: Record<string, any>;
 
 	constructor(ast: ASTNode) {
 		super(ast);
-		this.metadata = {};
+		this.config = Object.assign({}, DEFAULT_CONFIG);
 	}
 
 	override visitMetadata(node: ASTNode): void {
-		Object.assign(this.metadata, {
+		Object.assign(this.config, {
 			[node.primitives["key"]]: node.primitives["value"],
 		});
 		this.removeNode(node);
