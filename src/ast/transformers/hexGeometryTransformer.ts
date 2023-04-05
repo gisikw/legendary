@@ -5,14 +5,16 @@ import { HexGeometry } from "../nodes/index.js";
 export class HexGeometryTransformer extends Visitor {
 	override visitPathDefinition(node: ASTNode): void {
 		node.children["hexGeometries"] = node.primitives["coordinates"].map(
-			HexGeometry.fromCoord
+			(coord: string) =>
+				HexGeometry.fromCoord(coord, this.options["orientation"])
 		);
 		delete node.primitives["coordinates"];
 	}
 
 	override visitHexDefinition(node: ASTNode): void {
 		node.children["hexGeometry"] = HexGeometry.fromCoord(
-			node.primitives["coordinates"]
+			node.primitives["coordinates"],
+			this.options["orientation"]
 		);
 		delete node.primitives["coordinates"];
 	}

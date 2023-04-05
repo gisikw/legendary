@@ -3,6 +3,7 @@ import type { ASTNode } from "../astNode.js";
 
 const DEFAULT_CONFIG = {
 	size: 500,
+	orientation: "flat-top",
 };
 
 export class MetadataTransformer extends Visitor {

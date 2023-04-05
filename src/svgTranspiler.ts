@@ -26,8 +26,8 @@ export class SVGTranspiler {
 		const metadataTransformer = new MetadataTransformer(ast);
 		metadataTransformer.process();
 		const { config } = metadataTransformer;
-		HexGeometryTransformer.process(ast);
-		PathfindingTransformer.process(ast);
+		HexGeometryTransformer.process(ast, config);
+		PathfindingTransformer.process(ast, config);
 		HexPixelTransformer.process(ast, config);
 		RenderableTransformer.process(ast, config);
 		TerrainTransformer.process(ast);
